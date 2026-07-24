@@ -1,9 +1,9 @@
 $enable-shadows: true;
 
-$primary: #55c047;
+$primary: #69a821;
 $secondary: #6c757d;
 $danger: #d11f28;
-$success: #2f962c;
+$success: #689f38;
 $body-color: #2e3138;
 $headings-color: #1c1d20;
 $overlay: #2e313891;
@@ -20,6 +20,7 @@ $font-family-sans-serif:
 $font-family-base: $font-family-sans-serif;
 $font-size: 1rem;
 $font-size-sm: 0.75rem;
+$font-size-md: 0.85rem;
 $line-height: 1.5;
 
 $font-size-base: $font-size;
@@ -39,3 +40,4 @@ $link-color: $body-color;
 $link-decoration: underline;
 
 $letter-spacing-uppercase: 0.05em;
+$header-height: 4.5rem;
