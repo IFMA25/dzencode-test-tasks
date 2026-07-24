@@ -187,7 +187,7 @@ export default [
       "vue/max-attributes-per-line": [
         "error",
         {
-          singleline: { max: 1 },
+          singleline: { max: 999 },
           multiline: { max: 1 },
         },
       ],
@@ -201,7 +201,7 @@ export default [
       "vue/html-self-closing": [
         "error",
         {
-          html: { void: "never", normal: "always", component: "always" },
+          html: { void: "any", normal: "always", component: "always" },
           svg: "always",
           math: "always",
         },

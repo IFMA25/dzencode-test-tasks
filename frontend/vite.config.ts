@@ -13,6 +13,13 @@ export default ({ mode }: any) => {
       },
     },
     define: { "process.env": {} },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "@/app/styles/variables";`,
+        },
+      },
+    },
     server: {
       port: 3000,
       open: true,
