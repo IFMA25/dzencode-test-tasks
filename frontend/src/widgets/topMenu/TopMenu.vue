@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
+
 import CurrentDateTimeFeature from "@/features/currentDateTime/components/CurrentDateTimeFeature.vue";
 import VInput from "@/shared/ui/VInput.vue";
 import VLogo from "@/shared/ui/VLogo.vue";
+
+const { t } = useI18n();
 </script>
 <template>
   <header class="top-menu">
@@ -9,7 +13,7 @@ import VLogo from "@/shared/ui/VLogo.vue";
       <VLogo />
       <VInput
         type="search"
-        placeholder="Поиск"
+        :placeholder="t('search')"
       />
       <CurrentDateTimeFeature class="ms-auto" />
     </div>
