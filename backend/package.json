@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "REST API + Socket.io backend for Orders & Products SPA",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "lint": "eslint ./src --fix",
+    "lint:check": "eslint ./src"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "eslint": "^9.33.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.3.0",
+    "nodemon": "^3.1.7"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=10.0.0"
+  }
+}

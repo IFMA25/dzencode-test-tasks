@@ -1,0 +1,18 @@
+echo "🔍 Checking formatting..."
+pnpm format:check
+
+if [ $? -ne 0 ]; then
+  echo "❌ Formatting check failed. Run 'pnpm format' to fix."
+  exit 1
+fi
+
+echo "🔍 Running ESLint check (frontend)..."
+pnpm --filter frontend lint:check
+
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint check failed. Please fix the errors before committing."
+  echo "💡 You can run 'pnpm --filter frontend lint' to auto-fix some issues."
+  exit 1
+fi
+
+echo "✅ Checks passed. Proceeding with commit..."
