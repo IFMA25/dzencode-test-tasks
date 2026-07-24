@@ -1,7 +1,6 @@
 import { createPinia } from "pinia";
 import { createApp } from "vue";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import "animate.css";
 import "@/app/main.scss";
 
