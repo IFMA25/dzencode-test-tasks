@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useNow } from "@vueuse/core";
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 
 import { capitalize } from "@/shared/utils";
 
 const now = useNow();
-const locale = computed(() => "ru-RU");
+const { locale } = useI18n();
 
 const weekday = computed(() =>
   capitalize(new Intl.DateTimeFormat(locale.value, { weekday: "long" }).format(now.value)),

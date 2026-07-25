@@ -2,6 +2,7 @@
 import { useI18n } from "vue-i18n";
 
 import CurrentDateTimeFeature from "@/features/currentDateTime/components/CurrentDateTimeFeature.vue";
+import LangSelect from "@/features/translation/components/LangSelect.vue";
 import VInput from "@/shared/ui/VInput.vue";
 import VLogo from "@/shared/ui/VLogo.vue";
 
@@ -16,6 +17,7 @@ const { t } = useI18n();
         :placeholder="t('search')"
       />
       <CurrentDateTimeFeature class="ms-auto" />
+      <LangSelect />
     </div>
   </header>
 </template>
