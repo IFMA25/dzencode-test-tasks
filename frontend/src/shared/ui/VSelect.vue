@@ -122,6 +122,7 @@ $select-max-width: 20rem;
   &__field {
     width: fit-content;
     max-width: $select-max-width;
+    outline: none;
   }
 
   &__caret {
@@ -168,6 +169,10 @@ $select-max-width: 20rem;
     white-space: normal;
     word-break: break-word;
     transition: border-color 0.15s ease;
+  }
+
+  :deep(.multiselect__tags *:focus) {
+    outline: none;
   }
 
   :deep(.multiselect--active .multiselect__tags) {

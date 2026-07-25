@@ -16,7 +16,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="active-sessions d-flex align-items-end gap-2">
+  <div class="active-sessions d-flex align-items-baseline gap-2">
     <i
       class="active-sessions__icon bi bi-circle-fill"
       :class="{

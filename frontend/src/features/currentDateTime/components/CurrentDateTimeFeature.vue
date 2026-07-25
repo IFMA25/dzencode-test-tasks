@@ -73,5 +73,15 @@ const time = computed(() =>
   &__icon {
     color: $primary;
   }
+
+  @media (max-width: 575.98px) {
+    &__weekday {
+      font-size: $font-size-sm;
+    }
+
+    &__row {
+      font-size: $font-size-sm;
+    }
+  }
 }
 </style>

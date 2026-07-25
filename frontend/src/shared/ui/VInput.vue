@@ -32,6 +32,7 @@ const emitSearch = useDebounceFn((value: string) => {
       class="v-input form-control"
       :class="{ 'v-input--loading': loading }"
       :placeholder="placeholder"
+      v-bind="$attrs"
       @input="emitSearch(model?.trim() ?? '')"
     />
 

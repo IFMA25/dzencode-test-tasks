@@ -5,12 +5,6 @@ import TopMenu from "@/widgets/topMenu/TopMenu.vue";
 <template>
   <TopMenu />
   <main>
-    <div class="container content__container" />
+    <div class="container" />
   </main>
 </template>
-
-<style scoped lang="scss">
-.content__container {
-  padding-top: $header-height;
-}
-</style>

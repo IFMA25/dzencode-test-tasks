@@ -9,7 +9,7 @@ const LOGO_NAME = "Inventory";
       alt="logo"
       class="v-logo__icon"
     />
-    <span class="v-logo__text">{{ LOGO_NAME.toUpperCase() }}</span>
+    <span class="v-logo__text d-none d-sm-inline">{{ LOGO_NAME.toUpperCase() }}</span>
   </div>
 </template>
 
