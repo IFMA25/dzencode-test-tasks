@@ -30,6 +30,16 @@ export default ({ mode }: any) => {
     server: {
       port: 3000,
       open: true,
+      proxy: {
+        "/socket.io": {
+          target: "http://localhost:4000",
+          ws: true,
+        },
+        "/api": {
+          target: "http://localhost:4000",
+          changeOrigin: true,
+        },
+      },
     },
     build: {
       chunkSizeWarningLimit: 1100,

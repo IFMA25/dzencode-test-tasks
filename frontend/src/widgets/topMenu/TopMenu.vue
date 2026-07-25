@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 
+import ActiveSessionsFeature from "@/features/activeSessions/ActiveSessionsFeature.vue";
 import CurrentDateTimeFeature from "@/features/currentDateTime/components/CurrentDateTimeFeature.vue";
 import LangSelect from "@/features/translation/components/LangSelect.vue";
 import VInput from "@/shared/ui/VInput.vue";
@@ -16,7 +17,10 @@ const { t } = useI18n();
         type="search"
         :placeholder="t('search')"
       />
-      <CurrentDateTimeFeature class="ms-auto" />
+      <div class="d-flex ms-auto gap-4 align-items-end">
+        <ActiveSessionsFeature />
+        <CurrentDateTimeFeature />
+      </div>
       <LangSelect />
     </div>
   </header>
