@@ -1,10 +1,14 @@
-$primary: #8bc34a;
+$enable-shadows: true;
+
+$primary: #69a821;
 $secondary: #6c757d;
-$danger: #e4467c;
-$success: #8bc34a;
+$danger: #d11f28;
+$success: #689f38;
 $body-color: #2e3138;
+$headings-color: #1c1d20;
 $overlay: #2e313891;
 $body-bg: #f5f6f8;
+$body-bg-secondary: #e7ebee;
 $border-color: #e5e7eb;
 $text-muted: #9aa0a6;
 
@@ -16,6 +20,7 @@ $font-family-sans-serif:
 $font-family-base: $font-family-sans-serif;
 $font-size: 1rem;
 $font-size-sm: 0.75rem;
+$font-size-md: 0.85rem;
 $line-height: 1.5;
 
 $font-size-base: $font-size;
