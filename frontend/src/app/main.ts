@@ -7,6 +7,7 @@ import "@/app/main.scss";
 
 import App from "@/app/App.vue";
 import router from "@/app/router";
+import { useLanguageStore } from "@/features/translation/store/useLanguageStore";
 import i18n from "@/shared/i18n";
 
 const app = createApp(App);
@@ -14,5 +15,7 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(i18n);
 app.use(router);
+
+useLanguageStore().initLanguage();
 
 app.mount("#app");

@@ -2,6 +2,8 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 import { RouteNames } from "./variables/routeNames";
 
+import i18n from "@/shared/i18n";
+
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
@@ -67,6 +69,10 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.afterEach((to) => {
+  document.title = i18n.global.t(to.meta.title ?? "");
 });
 
 export default router;
