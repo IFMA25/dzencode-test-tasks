@@ -4,6 +4,7 @@
   "private": true,
   "description": "Test task for DzenCode",
   "scripts": {
+    "dev": "pnpm -r --parallel run dev",
     "format": "prettier --ignore-path .prettierignore --ignore-path .prettierignore.local --write .",
     "format:check": "prettier --ignore-path .prettierignore --ignore-path .prettierignore.local --check .",
     "prepare": "husky"

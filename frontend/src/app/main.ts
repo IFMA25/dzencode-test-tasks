@@ -18,4 +18,6 @@ app.use(router);
 
 useLanguageStore().initLanguage();
 
-app.mount("#app");
+router.isReady().then(() => {
+  app.mount("#app");
+});
