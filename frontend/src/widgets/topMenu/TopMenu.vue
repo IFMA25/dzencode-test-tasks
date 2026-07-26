@@ -67,8 +67,8 @@ const isSearchOpen = ref(false);
   position: sticky;
   top: 0;
   width: 100%;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background-color: $surface-bg;
+  box-shadow: $surface-shadow;
   z-index: 1;
 
   :deep(.top-menu__search-full) {

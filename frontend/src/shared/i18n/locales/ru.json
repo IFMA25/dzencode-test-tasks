@@ -1,4 +1,11 @@
 {
   "search": "Поиск",
-  "activeSessions": "Активные сессии"
+  "activeSessions": "Активные сессии",
+  "orders": "Приходы",
+  "groups": "Группы",
+  "products": "Продукты",
+  "settings": "Настройки",
+  "users": "Пользователи",
+  "notFound": "Страница не найдена",
+  "returnBack": "Вернуться"
 }
