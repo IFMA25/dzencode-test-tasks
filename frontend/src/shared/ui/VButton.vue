@@ -35,7 +35,7 @@ const variantBase: Record<string, string> = {
   primary: "btn rounded-pill v-button--primary",
   text: "btn btn-link text-decoration-none v-button--text",
   icon: "btn btn-link text-decoration-none v-button--icon",
-  circle: "btn btn-light rounded-circle v-button--circle",
+  circle: "btn btn-light rounded-circle p-0 v-button--circle",
   nav: "v-button--nav",
 };
 
@@ -60,7 +60,7 @@ const variantClass = computed(() => {
     :type="!isRouterLink ? type : undefined"
     :disabled="!isRouterLink ? isDisabled : undefined"
     :aria-disabled="isDisabled"
-    class="v-button"
+    class="v-button d-inline-flex align-items-center justify-content-center gap-2"
     :class="variantClass"
   >
     <VLoader
@@ -85,11 +85,6 @@ const variantClass = computed(() => {
 
 <style scoped lang="scss">
 .v-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-
   &--primary {
     padding: 0.5rem 1.25rem;
     font-weight: $font-weight-semibold;
@@ -118,7 +113,6 @@ const variantClass = computed(() => {
   &--circle {
     width: 2rem;
     height: 2rem;
-    padding: 0;
     font-size: 1rem;
     border: 1px solid $border-color;
   }
