@@ -8,5 +8,6 @@
   "profileSettings": "Profile settings",
   "users": "Users",
   "notFound": "Page not found",
-  "returnBack": "Return back"
+  "returnBack": "Return back",
+  "noData": "No data"
 }

@@ -25,11 +25,17 @@ const navItems = computed<NavItem[]>(() =>
     <TopMenu />
     <div class="d-flex flex-grow-1">
       <SideBar :nav-items="navItems" />
-      <main class="flex-grow-1">
-        <div class="container">
+      <main>
+        <div class="container container__content">
           <router-view />
         </div>
       </main>
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.container__content {
+  padding: $page-padding-y $page-padding-x;
+}
+</style>

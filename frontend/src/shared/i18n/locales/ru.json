@@ -8,5 +8,6 @@
   "profileSettings": "Настройки профиля",
   "users": "Пользователи",
   "notFound": "Страница не найдена",
-  "returnBack": "Вернуться"
+  "returnBack": "Вернуться",
+  "noData": "Нет данных"
 }

@@ -1,6 +1,6 @@
 $enable-shadows: true;
 
-$primary: #69a821;
+$primary: #73b826;
 $secondary: #6c757d;
 $danger: #d11f28;
 $success: #689f38;
@@ -13,6 +13,7 @@ $surface-bg: #fff;
 $sidebar-bg: #fdfeff;
 $border-color: #e5e7eb;
 $text-muted: #9aa0a6;
+$surface-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 
 $font-family-sans-serif:
   "Inter",
@@ -43,7 +44,7 @@ $link-color: $body-color;
 $link-decoration: underline;
 
 $letter-spacing-uppercase: 0.05em;
-$surface-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 $top-menu-height: 6rem;
 $sidebar-header-height: 9rem;
-$surface-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+$page-padding-y: 5rem;
+$page-padding-x: 4rem;

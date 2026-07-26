@@ -16,7 +16,7 @@ const {
   to = null,
   activeClass = "v-button--nav-active",
 } = defineProps<{
-  variant?: "primary" | "text" | "icon" | "circle" | "nav";
+  variant?: "primary" | "text" | "icon" | "circle" | "add" | "nav";
   text?: string;
   icon?: string;
   color?: string;
@@ -36,6 +36,7 @@ const variantBase: Record<string, string> = {
   text: "btn btn-link text-decoration-none v-button--text",
   icon: "btn btn-link text-decoration-none v-button--icon",
   circle: "btn btn-light rounded-circle p-0 v-button--circle",
+  add: "btn rounded-circle p-0 v-button--add",
   nav: "v-button--nav",
 };
 
@@ -115,6 +116,15 @@ const variantClass = computed(() => {
     height: 2rem;
     font-size: 1rem;
     border: 1px solid $border-color;
+  }
+
+  &--add {
+    width: 2.25rem;
+    height: 2.25rem;
+    background-color: $primary;
+    border: 3px solid $success;
+    color: $surface-bg;
+    font-size: 1.1rem;
   }
 
   &--nav {
