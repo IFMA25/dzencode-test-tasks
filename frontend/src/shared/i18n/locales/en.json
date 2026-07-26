@@ -1,4 +1,12 @@
 {
   "search": "Search",
-  "activeSessions": "Active sessions"
+  "activeSessions": "Active sessions",
+  "orders": "Orders",
+  "groups": "Groups",
+  "products": "Products",
+  "settings": "Settings",
+  "profileSettings": "Profile settings",
+  "users": "Users",
+  "notFound": "Page not found",
+  "returnBack": "Return back"
 }
