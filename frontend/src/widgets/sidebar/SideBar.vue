@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { useMediaQuery } from "@vueuse/core";
+import { ref, watch } from "vue";
 
 import SidebarHeader from "./components/SidebarHeader.vue";
 import SidebarNavItem from "./components/SidebarNavItem.vue";
@@ -11,7 +12,12 @@ defineProps<{
   navItems: NavItem[];
 }>();
 
-const isOpen = ref(true);
+const isDesktop = useMediaQuery("(min-width: 1200px)");
+const isOpen = ref(isDesktop.value);
+
+watch(isDesktop, (value) => {
+  isOpen.value = value;
+});
 
 const toggle = () => {
   isOpen.value = !isOpen.value;

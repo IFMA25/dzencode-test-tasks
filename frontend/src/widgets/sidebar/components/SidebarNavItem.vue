@@ -44,6 +44,8 @@ defineProps<{
   }
 
   &__text {
+    position: relative;
+    display: inline-block;
     letter-spacing: $letter-spacing-uppercase;
 
     &::after {
@@ -67,6 +69,10 @@ defineProps<{
   &__link--active {
     .nav-item__text::after {
       transform: scaleX(1);
+    }
+
+    .nav-item__icon {
+      color: $success;
     }
   }
 }
