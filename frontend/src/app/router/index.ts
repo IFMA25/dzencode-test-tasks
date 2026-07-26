@@ -56,6 +56,15 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: "/profile-settings",
+    name: RouteNames.profileSettings,
+    component: () => import("@/pages/ProfileSettings.vue"),
+    meta: {
+      title: "profileSettings",
+      showInMenu: false,
+    },
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: RouteNames.notFound,
     component: () => import("@/pages/NotFound.vue"),

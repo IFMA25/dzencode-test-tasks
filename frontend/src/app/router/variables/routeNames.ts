@@ -4,6 +4,7 @@ export const RouteNames = {
   products: "products",
   users: "users",
   settings: "settings",
+  profileSettings: "profileSettings",
   notFound: "notFound",
 } as const;
 
