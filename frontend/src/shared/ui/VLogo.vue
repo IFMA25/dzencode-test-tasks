@@ -3,22 +3,21 @@ const LOGO_NAME = "Inventory";
 </script>
 
 <template>
-  <div class="v-logo">
+  <RouterLink
+    to="/"
+    class="v-logo d-inline-flex align-items-center gap-2 text-decoration-none"
+  >
     <img
       src="@/assets/logo.svg"
       alt="logo"
       class="v-logo__icon"
     />
     <span class="v-logo__text d-none d-sm-inline">{{ LOGO_NAME.toUpperCase() }}</span>
-  </div>
+  </RouterLink>
 </template>
 
 <style scoped lang="scss">
 .v-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-
   &__icon {
     width: 2.5rem;
     height: 2.5rem;

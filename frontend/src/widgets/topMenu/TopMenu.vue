@@ -15,63 +15,53 @@ const isSearchOpen = ref(false);
 </script>
 
 <template>
-  <header class="top-menu">
-    <div
-      v-if="!isSearchOpen"
-      class="container d-flex align-items-center gap-4 py-2"
-    >
-      <VLogo class="me-0 me-sm-3" />
+  <header class="top-menu sticky-top w-100">
+    <div class="container d-flex align-items-center gap-2 py-2">
+      <VLogo
+        v-if="!isSearchOpen"
+        class="me-0 me-sm-3"
+      />
 
       <VInput
         type="search"
         :placeholder="t('search')"
-        class="d-none d-lg-block"
+        class="top-menu__search"
+        :class="{ 'top-menu__search--open': isSearchOpen, 'd-none d-lg-block': !isSearchOpen }"
+        :autofocus="isSearchOpen"
       />
 
-      <div class="d-flex flex-wrap justify-content-end align-items-center ms-auto gap-3">
+      <VButton
+        variant="circle"
+        :icon="isSearchOpen ? 'x' : 'search'"
+        class="d-lg-none"
+        :class="{ 'ms-auto': !isSearchOpen }"
+        @click="isSearchOpen = !isSearchOpen"
+      />
+
+      <div
+        v-if="!isSearchOpen"
+        class="d-flex flex-wrap justify-content-end align-items-center ms-auto gap-3"
+      >
         <div class="d-flex flex-column-reverse flex-xl-row gap-1 gap-xl-5 align-items-end">
           <ActiveSessionsFeature class="align-self-start align-self-xl-auto" />
           <CurrentDateTimeFeature />
         </div>
         <LangSelect />
-        <VButton
-          variant="circle"
-          icon="search"
-          class="d-lg-none"
-          @click="isSearchOpen = true"
-        />
       </div>
-    </div>
-
-    <div
-      v-else
-      class="container d-flex align-items-center gap-2 py-2"
-    >
-      <VInput
-        type="search"
-        :placeholder="t('search')"
-        class="top-menu__search-full"
-        autofocus
-      />
-      <VButton
-        variant="circle"
-        icon="x"
-        @click="isSearchOpen = false"
-      />
     </div>
   </header>
 </template>
 
 <style scoped lang="scss">
 .top-menu {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  z-index: 1;
+  background-color: $surface-bg;
+  box-shadow: $surface-shadow;
 
-  :deep(.top-menu__search-full) {
+  .container {
+    min-height: $top-menu-height;
+  }
+
+  :deep(.top-menu__search--open) {
     flex: 1;
     max-width: none;
   }
