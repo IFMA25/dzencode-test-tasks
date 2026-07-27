@@ -19,7 +19,11 @@ const orderSeeds = [
   { date: "2023-08-30 17:33:09", description: "desc" },
 ].map((seed, index) => ({ title: orderTitles[index % orderTitles.length], ...seed }));
 
-export const orders = orderSeeds.map((seed, index) => ({ id: index + 1, ...seed }));
+export const orders = orderSeeds.map((seed, index) => {
+  const id = index + 1;
+
+  return { ...seed, id, title: `${seed.title} #${id}` };
+});
 
 const productSeeds = [
   {

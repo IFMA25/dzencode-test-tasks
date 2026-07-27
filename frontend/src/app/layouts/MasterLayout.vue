@@ -25,8 +25,8 @@ const navItems = computed<NavItem[]>(() =>
     <TopMenu />
     <div class="d-flex flex-grow-1 layout-body">
       <SideBar :nav-items="navItems" />
-      <main class="flex-grow-1 d-flex flex-column main-content">
-        <div class="container d-flex flex-grow-1 flex-column container__content">
+      <main class="main-content flex-grow-1 d-flex flex-column">
+        <div class="container__content d-flex flex-grow-1 flex-column">
           <router-view />
         </div>
       </main>

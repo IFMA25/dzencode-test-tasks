@@ -11,5 +11,8 @@
   "returnBack": "Return back",
   "noData": "No data",
   "emptyOrdersTable": "Add new incoming order to display",
-  "productCount": "Products"
+  "productCount": "Products",
+  "deleteModalTitle": "Are you sure you want to delete this order?",
+  "modalCancel": "Cancel",
+  "modalDelete": "Delete"
 }

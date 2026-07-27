@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { toast } from "vue-sonner";
 
+import OrderDeleteModal from "./components/OrderDeleteModal.vue";
 import { getOrderTotalPrice } from "./utils";
 
 import type { Order } from "@/shared/types";
@@ -14,7 +16,8 @@ import { useOrdersStore } from "@/stores/useOrdersStore";
 const ordersStore = useOrdersStore();
 const { locale } = useI18n();
 
-const toDate = (date: string) => new Date(date.replace(" ", "T"));
+const selectedOrder = ref<Order | null>(null);
+const showDeleteModal = ref(false);
 
 const columns: GridTableColumn<Order>[] = [
   { key: "title", width: "minmax(0, 50%)", position: "d-flex" },
@@ -32,6 +35,24 @@ const columns: GridTableColumn<Order>[] = [
   { key: "action", width: "minmax(0, 5%)", position: "d-flex justify-content-center" },
 ];
 
+const toDate = (date: string) => new Date(date.replace(" ", "T"));
+
+const openDeleteModal = (order: Order) => {
+  selectedOrder.value = order;
+  showDeleteModal.value = true;
+};
+
+const confirmDeleteOrder = async () => {
+  await ordersStore.deleteOrder(selectedOrder.value!.id);
+
+  if (ordersStore.errorMessage) {
+    toast.error(ordersStore.errorMessage);
+    return;
+  }
+
+  showDeleteModal.value = false;
+};
+
 const ordersCount = computed(() => {
   return ordersStore.ordersData.length;
 });
@@ -42,6 +63,12 @@ onMounted(() => {
 </script>
 
 <template>
+  <OrderDeleteModal
+    v-model:open="showDeleteModal"
+    :order="selectedOrder"
+    :loading="ordersStore.loading"
+    @confirm="confirmDeleteOrder"
+  />
   <div class="d-flex flex-column h-100">
     <div class="orders d-flex align-items-center gap-2 mb-4 flex-shrink-0">
       <VButton
@@ -62,7 +89,7 @@ onMounted(() => {
         class="orders__table orders-table__table"
       >
         <template #cell-title="{ row }">
-          <span class="text-decoration-underline">{{ row.title }}</span>
+          <span class="orders-table__title">{{ row.title }}</span>
         </template>
         <template #cell-count="{ row }">
           <div class="orders-table__count d-grid align-items-center">
@@ -96,11 +123,12 @@ onMounted(() => {
             <span class="orders-table__price-symbol">{{ getCurrencySymbol(price.symbol) }}</span>
           </div>
         </template>
-        <template #cell-action>
+        <template #cell-action="{ row }">
           <VButton
             variant="icon"
             icon="trash"
             class="orders-table__delete flex-grow-1 h-100"
+            @click="openDeleteModal(row)"
           />
         </template>
 
@@ -123,6 +151,11 @@ onMounted(() => {
 .orders-table {
   &__table {
     color: $text-table;
+  }
+
+  &__title {
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
   }
 
   &__count {

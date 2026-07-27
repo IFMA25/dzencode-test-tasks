@@ -11,5 +11,8 @@
   "returnBack": "Вернуться",
   "noData": "Нет данных",
   "emptyOrdersTable": "Добавьте новый приход для отображения",
-  "productCount": "Продукта"
+  "productCount": "Продукта",
+  "deleteModalTitle": "Вы уверены, что хотите удалить этот приход?",
+  "modalCancel": "Отменить",
+  "modalDelete": "Удалить"
 }

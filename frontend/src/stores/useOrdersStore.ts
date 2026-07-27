@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-import { getOrders } from "@/shared/api/apiOrders";
+import { deleteOrderRequest, getOrdersRequest } from "@/shared/api/apiOrders";
 import { Order } from "@/shared/types";
 
 export const useOrdersStore = defineStore("orders", () => {
@@ -12,10 +12,23 @@ export const useOrdersStore = defineStore("orders", () => {
   const loadOrders = async () => {
     try {
       loading.value = true;
-      const orders = await getOrders();
+      const orders = await getOrdersRequest();
       ordersData.value = orders;
     } catch (e) {
       errorMessage.value = e instanceof Error ? e.message : "Failed to load orders";
+      console.error(errorMessage.value);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const deleteOrder = async (id: Order["id"]) => {
+    try {
+      loading.value = true;
+      await deleteOrderRequest(id);
+      await loadOrders();
+    } catch (e) {
+      errorMessage.value = e instanceof Error ? e.message : "Failed to delete order";
       console.error(errorMessage.value);
     } finally {
       loading.value = false;
@@ -27,5 +40,6 @@ export const useOrdersStore = defineStore("orders", () => {
     loading,
     errorMessage,
     loadOrders,
+    deleteOrder,
   };
 });

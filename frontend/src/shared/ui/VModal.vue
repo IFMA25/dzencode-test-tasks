@@ -3,16 +3,15 @@ import { onBeforeUnmount, onMounted } from "vue";
 
 import VButton from "./VButton.vue";
 
-const { modelValue, title = "" } = defineProps<{
-  modelValue: boolean;
+const { title = "" } = defineProps<{
   title?: string;
 }>();
 
-const emit = defineEmits<{
-  "update:modelValue": [value: boolean];
-}>();
+const open = defineModel<boolean>("open", { required: true });
 
-const close = () => emit("update:modelValue", false);
+const close = () => {
+  open.value = false;
+};
 
 const handleKeydown = (event: KeyboardEvent) => {
   if (event.key === "Escape") close();
@@ -26,35 +25,33 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
   <Teleport to="body">
     <Transition name="modal">
       <div
-        v-if="modelValue"
-        class="modal-backdrop d-flex align-items-center justify-content-center"
-        @click="close"
+        v-if="open"
+        class="modal-overlay position-fixed d-flex align-items-center justify-content-center"
+        @click.self="close"
       >
-        <div
-          class="modal-dialog"
-          @click.stop
-        >
-          <div class="modal-dialog__header d-flex align-items-center justify-content-between">
+        <div class="modal-panel w-100 rounded-3 overflow-hidden">
+          <div class="modal-panel__header d-flex align-items-center justify-content-between">
             <h3
               v-if="title"
-              class="modal-dialog__title m-0"
+              class="modal-panel__title m-0"
             >
               {{ title }}
             </h3>
             <VButton
               variant="icon"
               icon="x"
+              class="modal-panel__close-btn"
               @click="close"
             />
           </div>
 
-          <div class="modal-dialog__content">
+          <div class="modal-panel__content">
             <slot />
           </div>
 
           <div
             v-if="$slots.footer"
-            class="modal-dialog__footer"
+            class="modal-panel__footer d-flex justify-content-end"
           >
             <slot name="footer" />
           </div>
@@ -65,18 +62,15 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
 </template>
 
 <style scoped lang="scss">
-.modal-backdrop {
-  position: fixed;
+.modal-overlay {
   inset: 0;
-  z-index: 1050;
+  z-index: 1055;
   background-color: $overlay;
 }
 
-.modal-dialog {
-  width: 100%;
-  max-width: 30rem;
+.modal-panel {
+  max-width: 40rem;
   background-color: $surface-bg;
-  border-radius: 0.5rem;
   box-shadow: $surface-shadow;
 
   &__header {
@@ -90,6 +84,11 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
     color: $headings-color;
   }
 
+  &__close-btn {
+    margin-right: -1rem;
+    margin-top: -1rem;
+  }
+
   &__content {
     padding: 1.25rem 1.5rem;
   }
@@ -97,9 +96,6 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
   &__footer {
     padding: 1rem 1.5rem;
     background-color: $primary;
-    border-radius: 0 0 0.5rem 0.5rem;
-    display: flex;
-    justify-content: flex-end;
     gap: 0.75rem;
   }
 }
