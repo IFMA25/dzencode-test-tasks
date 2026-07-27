@@ -21,12 +21,12 @@ const navItems = computed<NavItem[]>(() =>
 </script>
 
 <template>
-  <div class="d-flex flex-column min-vh-100">
+  <div class="d-flex flex-column vh-100">
     <TopMenu />
-    <div class="d-flex flex-grow-1">
+    <div class="d-flex flex-grow-1 layout-body">
       <SideBar :nav-items="navItems" />
-      <main>
-        <div class="container container__content">
+      <main class="flex-grow-1 d-flex flex-column main-content">
+        <div class="container d-flex flex-grow-1 flex-column container__content">
           <router-view />
         </div>
       </main>
@@ -35,7 +35,16 @@ const navItems = computed<NavItem[]>(() =>
 </template>
 
 <style scoped lang="scss">
+.layout-body {
+  min-height: 0;
+}
+
+.main-content {
+  min-height: 0;
+}
+
 .container__content {
+  min-height: 0;
   padding: $page-padding-y $page-padding-x;
 }
 </style>

@@ -11,13 +11,11 @@ const {
   rows = [],
   columns = [],
   loading = false,
-  showEmptyState = true,
   variant = "card",
 } = defineProps<{
   rows: T[];
   columns?: GridTableColumn<T>[];
   loading?: boolean;
-  showEmptyState?: boolean;
   variant?: "card" | "list";
 }>();
 
@@ -28,7 +26,7 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="v-grid-table position-relative">
+  <div class="v-grid-table position-relative h-100">
     <div
       v-if="$slots.toolbar"
       class="v-grid-table__toolbar"
@@ -38,16 +36,16 @@ defineEmits<{
 
     <VLoader
       v-if="loading"
+      size="lg"
+      color="var(--bs-primary)"
       class="v-grid-table__loader position-absolute top-50 start-50 translate-middle"
     />
 
     <div
-      v-else-if="showEmptyState && !rows.length"
-      class="v-grid-table__empty text-center text-muted py-5"
+      v-else-if="$slots.message"
+      class="v-grid-table__message text-center text-muted py-5"
     >
-      <slot name="emptyState">
-        {{ $t("noData") }}
-      </slot>
+      <slot name="message" />
     </div>
 
     <div
@@ -90,11 +88,15 @@ defineEmits<{
     display: grid;
   }
 
+  &__cell {
+    align-items: center;
+  }
+
   &__row {
     display: grid;
     grid-template-columns: subgrid;
     grid-column: 1 / -1;
-    align-items: center;
+    align-items: stretch;
     cursor: pointer;
     transition: background-color 0.15s ease;
   }
@@ -108,12 +110,13 @@ defineEmits<{
 
     .v-grid-table__row {
       background-color: $surface-bg;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-      border-radius: 0.75rem;
+      border: 1px solid $border-color;
+      border-radius: 0.25rem;
       padding: 0.75rem 1.25rem;
+      transition: all 0.2s ease;
 
       &:hover {
-        background-color: $body-bg-secondary;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       }
     }
   }

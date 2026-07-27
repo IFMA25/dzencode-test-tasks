@@ -34,9 +34,9 @@ defineProps<{
 <style scoped lang="scss">
 .nav-item {
   &__link {
-    color: $body-color;
     font-weight: $font-weight-medium;
     line-height: 1.5rem;
+    transition: all 0.2s ease;
 
     &:hover {
       color: $text-muted;

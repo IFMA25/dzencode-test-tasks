@@ -41,9 +41,9 @@ const { size = "md", color = "var(--bs-heading-color)" } = defineProps<{
     }
 
     &--lg {
-      width: 2.5rem;
-      height: 2.5rem;
-      border-width: 4px;
+      width: 4rem;
+      height: 4rem;
+      border-width: 5px;
     }
   }
 }

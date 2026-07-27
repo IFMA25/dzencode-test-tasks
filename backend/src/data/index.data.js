@@ -1,25 +1,23 @@
-const orderSeeds = [
-  { title: "Order 1", date: "2017-06-29 12:09:33", description: "Office equipment delivery" },
-  { title: "Order 2", date: "2018-03-14 09:45:00", description: "Peripherals restock" },
-  { title: "Order 3", date: "2019-11-02 16:20:12", description: "Warehouse batch delivery" },
-  {
-    title: "Order 4 with a much longer name to test how the order title wraps in the UI",
-    date: "2020-05-18 08:30:45",
-    description: "Large mixed batch delivery for the new office branch",
-  },
-  { title: "Order 5", date: "2021-09-01 14:12:59", description: "Small accessories restock" },
-  { title: "Order 6", date: "2021-12-20 10:05:22", description: "Year-end equipment refresh" },
-  { title: "Order 7", date: "2022-02-11 11:40:03", description: "New hires onboarding kits" },
-  {
-    title: "Order 8 for the remote branch office equipment and accessories restock",
-    date: "2022-06-07 13:25:47",
-    description: "Remote branch office setup",
-  },
-  { title: "Order 9", date: "2022-10-19 09:15:31", description: "Warehouse batch delivery" },
-  { title: "Order 10", date: "2023-01-05 15:50:18", description: "Conference room upgrade" },
-  { title: "Order 11", date: "2023-04-22 08:00:00", description: "Support team accessories" },
-  { title: "Order 12", date: "2023-08-30 17:33:09", description: "Final quarter restock" },
+const orderTitles = [
+  "Длинное название прихода",
+  "Длинное предлинное длинючее название прихода",
+  "Длинное длинное предлинное длиннючее придлиннючее название прихода",
 ];
+
+const orderSeeds = [
+  { date: "2017-06-29 12:09:33", description: "desc" },
+  { date: "2018-03-14 09:45:00", description: "desc" },
+  { date: "2019-11-02 16:20:12", description: "desc" },
+  { date: "2020-05-18 08:30:45", description: "desc" },
+  { date: "2021-09-01 14:12:59", description: "desc" },
+  { date: "2021-12-20 10:05:22", description: "desc" },
+  { date: "2022-02-11 11:40:03", description: "desc" },
+  { date: "2022-06-07 13:25:47", description: "desc" },
+  { date: "2022-10-19 09:15:31", description: "desc" },
+  { date: "2023-01-05 15:50:18", description: "desc" },
+  { date: "2023-04-22 08:00:00", description: "desc" },
+  { date: "2023-08-30 17:33:09", description: "desc" },
+].map((seed, index) => ({ title: orderTitles[index % orderTitles.length], ...seed }));
 
 export const orders = orderSeeds.map((seed, index) => ({ id: index + 1, ...seed }));
 

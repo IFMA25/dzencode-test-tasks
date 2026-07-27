@@ -8,7 +8,7 @@ const {
   variant = "primary",
   text = "",
   icon = "",
-  color = "primary",
+  color = "",
   textColor = "",
   type = "button",
   disabled = false,
@@ -86,6 +86,8 @@ const variantClass = computed(() => {
 
 <style scoped lang="scss">
 .v-button {
+  transition: all 0.2s ease;
+
   &--primary {
     padding: 0.5rem 1.25rem;
     font-weight: $font-weight-semibold;
@@ -95,9 +97,6 @@ const variantClass = computed(() => {
     padding: 0.5rem 1.25rem;
     border: 1px solid transparent;
     border-radius: 50rem;
-    transition:
-      border-color 0.15s ease,
-      box-shadow 0.15s ease;
 
     &:hover {
       border-color: $border-color;
@@ -133,7 +132,7 @@ const variantClass = computed(() => {
     padding: 0.75rem 0;
     border: 0;
     background: transparent;
-    color: $text-muted;
+    color: $body-color;
     font-weight: $font-weight-medium;
     letter-spacing: $letter-spacing-uppercase;
     text-align: center;

@@ -4,7 +4,7 @@ import { onUnmounted, ref } from "vue";
 
 const count = ref(0);
 
-const socket = io(import.meta.env.VITE_API_URL);
+const socket = io();
 
 socket.on("sessions:count", (value: number) => {
   count.value = value;

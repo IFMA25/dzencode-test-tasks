@@ -9,5 +9,7 @@
   "users": "Users",
   "notFound": "Page not found",
   "returnBack": "Return back",
-  "noData": "No data"
+  "noData": "No data",
+  "emptyOrdersTable": "Add new incoming order to display",
+  "productCount": "Products"
 }
