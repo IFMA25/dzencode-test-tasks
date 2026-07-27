@@ -144,10 +144,6 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-.orders-table-scroll {
-  min-height: 0;
-}
-
 .orders-table {
   &__table {
     color: $text-table;
@@ -156,6 +152,10 @@ onMounted(() => {
   &__title {
     text-decoration: underline;
     text-underline-offset: 0.25rem;
+
+    @media (max-width: 992px) {
+      font-size: $font-size-md;
+    }
   }
 
   &__count {
@@ -170,9 +170,17 @@ onMounted(() => {
     color: $text-muted;
     font-size: $font-size-md;
 
+    @media (max-width: 1200px) {
+      font-size: $small-font-size;
+    }
+
     &--default {
       color: $text-table;
       font-size: $font-size;
+
+      @media (max-width: 1200px) {
+        font-size: $font-size-md;
+      }
     }
   }
 
@@ -185,6 +193,12 @@ onMounted(() => {
       font-size: $small-font-size;
       color: $text-muted;
     }
+
+    &--long {
+      @media (max-width: 1200px) {
+        font-size: $font-size-md;
+      }
+    }
   }
 
   &__btn-prod {
@@ -195,6 +209,10 @@ onMounted(() => {
     grid-area: count-number;
     font-size: $font-size-lg;
     font-weight: $font-weight-semibold;
+
+    @media (max-width: 1200px) {
+      font-size: $font-size;
+    }
   }
 
   &__count-text {

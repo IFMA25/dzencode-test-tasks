@@ -37,14 +37,21 @@ const navItems = computed<NavItem[]>(() =>
 <style scoped lang="scss">
 .layout-body {
   min-height: 0;
+  min-width: 0;
 }
 
 .main-content {
   min-height: 0;
+  min-width: 0;
 }
 
 .container__content {
   min-height: 0;
+  min-width: 0;
   padding: $page-padding-y $page-padding-x;
+
+  @media (max-width: 1200px) {
+    padding: calc($page-padding-y / 2) calc($page-padding-x / 2);
+  }
 }
 </style>

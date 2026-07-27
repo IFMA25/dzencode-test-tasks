@@ -86,6 +86,10 @@ defineEmits<{
 
   &__grid {
     display: grid;
+
+    @media (max-width: 992px) {
+      min-width: 55rem;
+    }
   }
 
   &__cell {
