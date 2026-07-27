@@ -13,6 +13,7 @@
   "emptyOrdersTable": "Добавьте новый приход для отображения",
   "productCount": "Продукта",
   "deleteModalTitle": "Вы уверены, что хотите удалить этот приход?",
+  "addIncomingOrder": "Добавить новый приход",
   "modalCancel": "Отменить",
   "modalDelete": "Удалить"
 }

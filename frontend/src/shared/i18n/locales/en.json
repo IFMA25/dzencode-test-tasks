@@ -13,6 +13,7 @@
   "emptyOrdersTable": "Add new incoming order to display",
   "productCount": "Products",
   "deleteModalTitle": "Are you sure you want to delete this order?",
+  "addIncomingOrder": "Add new incoming order",
   "modalCancel": "Cancel",
   "modalDelete": "Delete"
 }

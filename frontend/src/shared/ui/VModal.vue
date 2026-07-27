@@ -29,7 +29,7 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
         class="modal-overlay position-fixed d-flex align-items-center justify-content-center"
         @click.self="close"
       >
-        <div class="modal-panel w-100 rounded-3 overflow-hidden">
+        <div class="modal-panel w-100 mx-3 rounded-3 overflow-hidden">
           <div class="modal-panel__header d-flex align-items-center justify-content-between">
             <h3
               v-if="title"
@@ -73,6 +73,10 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
   background-color: $surface-bg;
   box-shadow: $surface-shadow;
 
+  @media (max-width: 576px) {
+    font-size: $small-font-size;
+  }
+
   &__header {
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid $border-color;
@@ -82,6 +86,10 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
     font-size: $font-size-lg;
     font-weight: $font-weight-semibold;
     color: $headings-color;
+
+    @media (max-width: 576px) {
+      font-size: $font-size;
+    }
   }
 
   &__close-btn {

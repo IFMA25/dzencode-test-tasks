@@ -9,6 +9,7 @@ import { getOrderTotalPrice } from "./utils";
 import type { Order } from "@/shared/types";
 import VButton from "@/shared/ui/VButton.vue";
 import VGridTable, { type GridTableColumn } from "@/shared/ui/VGridTable.vue";
+import VModal from "@/shared/ui/VModal.vue";
 import VPageTitle from "@/shared/ui/VPageTitle.vue";
 import { formatDateLong, formatDateShort, getCurrencySymbol } from "@/shared/utils";
 import { useOrdersStore } from "@/stores/useOrdersStore";
@@ -18,6 +19,7 @@ const { locale } = useI18n();
 
 const selectedOrder = ref<Order | null>(null);
 const showDeleteModal = ref(false);
+const showAddModal = ref(false);
 
 const columns: GridTableColumn<Order>[] = [
   { key: "title", width: "minmax(0, 50%)", position: "d-flex" },
@@ -69,11 +71,18 @@ onMounted(() => {
     :loading="ordersStore.loading"
     @confirm="confirmDeleteOrder"
   />
+
+  <VModal
+    v-model:open="showAddModal"
+    :title="$t('addIncomingOrder')"
+  />
+
   <div class="d-flex flex-column h-100">
     <div class="orders d-flex align-items-center gap-2 mb-4 flex-shrink-0">
       <VButton
         variant="add"
         icon="plus-lg"
+        @click="showAddModal = true"
       />
       <VPageTitle class="m-0" />
       <span>/</span>
