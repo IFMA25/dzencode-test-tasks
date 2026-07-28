@@ -6,23 +6,23 @@ import type { Product } from "@/shared/types";
 import VGridTable, { type GridTableColumn } from "@/shared/ui/VGridTable.vue";
 import VPageTitle from "@/shared/ui/VPageTitle.vue";
 import VSelect from "@/shared/ui/VSelect.vue";
-import { getCurrencySymbol } from "@/shared/utils/format";
+import { formatCurrencyValue, getCurrencySymbol } from "@/shared/utils/format";
 import { formatDateLong, formatDateShort, toDate } from "@/shared/utils/formatDate";
 import { useProductsStore } from "@/stores/useProductsStore";
 
 const columns: GridTableColumn<Product>[] = [
   { key: "conditionDot", width: "minmax(0, 3%)", position: "d-flex justify-content-center" },
-  { key: "title", width: "minmax(0, 22%)", position: "d-flex align-items-center gap-3" },
-  { key: "type", width: "minmax(0, 12%)", position: "d-flex justify-content-center" },
-  { key: "condition", width: "minmax(0, 10%)", position: "d-flex justify-content-center" },
+  { key: "title", width: "minmax(0, 30%)", position: "d-flex align-items-center gap-3" },
+  { key: "type", width: "minmax(0, 10%)", position: "d-flex justify-content-center" },
+  { key: "condition", width: "minmax(0, 7%)", position: "d-flex justify-content-center" },
   {
     key: "guarantee",
-    width: "minmax(0, 18%)",
+    width: "minmax(0, 20%)",
     position: "d-flex flex-column justify-content-center",
   },
   {
     key: "price",
-    width: "minmax(0, 15%)",
+    width: "minmax(0, 10%)",
     position: "d-flex flex-column justify-content-center",
   },
   { key: "orderTitle", width: "minmax(0, 20%)", position: "d-flex" },
@@ -46,8 +46,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="products-page position-relative h-100 d-grid gap-3">
-    <VPageTitle :count="productsCount" class="products-page__title align-self-center" />
+  <div class="products position-relative h-100 d-grid gap-3">
+    <VPageTitle :count="productsCount" class="products__title align-self-center" />
 
     <VGridTable
       :rows="productsStore.productsData"
@@ -55,14 +55,14 @@ onMounted(() => {
       :loading="productsStore.loading"
       :has-error="productsStore.hasError"
       variant="card"
-      class="products-page__table products-table__table"
+      class="products__table products-table__table"
     >
       <template v-if="productsStore.productTypes.length" #toolbar>
         <VSelect
           id="product-type"
           v-model="productsStore.selectedType"
           :options="typeOptions"
-          :label-text="t('type')"
+          :label-text="`${t('type')}:`"
           label="label"
           track-by="key"
           :allow-empty="false"
@@ -111,7 +111,7 @@ onMounted(() => {
           class="products-table__price"
           :class="{ 'products-table__price--default': price.isDefault }"
         >
-          {{ price.value }}
+          {{ formatCurrencyValue(price.value) }}
           <span class="products-table__price-symbol">{{ getCurrencySymbol(price.symbol) }}</span>
         </div>
       </template>
@@ -127,7 +127,7 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-.products-page {
+.products {
   grid-template-columns: auto auto 1fr;
   grid-template-rows: auto 1fr;
 
@@ -191,6 +191,10 @@ onMounted(() => {
     color: $text-muted;
     font-size: $font-size-md;
 
+    @media (max-width: 1200px) {
+      font-size: $font-size-sm;
+    }
+
     &--default {
       color: $text-table;
       font-size: $font-size;
@@ -203,6 +207,14 @@ onMounted(() => {
 
   &__order-title {
     color: $text-muted;
+  }
+
+  &__order-title,
+  &__title,
+  &__price--default {
+    @media (max-width: 1200px) {
+      font-size: $font-size-md;
+    }
   }
 }
 </style>

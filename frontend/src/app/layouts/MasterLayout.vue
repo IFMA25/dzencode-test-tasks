@@ -50,7 +50,7 @@ const navItems = computed<NavItem[]>(() =>
   min-width: 0;
   padding: $page-padding-y $page-padding-x;
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1400px) {
     padding: calc($page-padding-y / 2) calc($page-padding-x / 2);
   }
 }

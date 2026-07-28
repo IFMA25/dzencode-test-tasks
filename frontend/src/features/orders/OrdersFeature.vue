@@ -11,7 +11,7 @@ import VButton from "@/shared/ui/VButton.vue";
 import VGridTable, { type GridTableColumn } from "@/shared/ui/VGridTable.vue";
 import VModal from "@/shared/ui/VModal.vue";
 import VPageTitle from "@/shared/ui/VPageTitle.vue";
-import { getCurrencySymbol } from "@/shared/utils/format";
+import { formatCurrencyValue, getCurrencySymbol } from "@/shared/utils/format";
 import { formatDateLong, formatDateShort, toDate } from "@/shared/utils/formatDate";
 import { useOrdersStore } from "@/stores/useOrdersStore";
 
@@ -116,7 +116,7 @@ onMounted(() => {
           class="orders-table__price"
           :class="{ 'orders-table__price--default': price.isDefault }"
         >
-          {{ price.value }}
+          {{ formatCurrencyValue(price.value) }}
           <span class="orders-table__price-symbol">{{ getCurrencySymbol(price.symbol) }}</span>
         </div>
       </template>

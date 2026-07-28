@@ -29,7 +29,7 @@ defineEmits<{
 
 <template>
   <div class="v-grid-table position-relative h-100 d-flex flex-column">
-    <div v-if="$slots.toolbar" class="v-grid-table__toolbar flex-shrink-0 mb-3">
+    <div v-if="$slots.toolbar" class="v-grid-table__toolbar flex-shrink-0">
       <slot name="toolbar" />
     </div>
 
@@ -107,6 +107,7 @@ defineEmits<{
   &__row {
     grid-template-columns: subgrid;
     grid-column: 1 / -1;
+    column-gap: 3px;
     cursor: pointer;
     transition: background-color 0.15s ease;
   }
