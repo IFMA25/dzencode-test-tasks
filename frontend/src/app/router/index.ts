@@ -14,16 +14,18 @@ const routes: RouteRecordRaw[] = [
       titleMenu: "orders",
       iconMenu: "receipt",
     },
-  },
-  {
-    path: "/groups",
-    name: RouteNames.groups,
-    component: () => import("@/pages/Groups.vue"),
-    meta: {
-      title: "groups",
-      titleMenu: "groups",
-      iconMenu: "collection",
-    },
+    children: [
+      {
+        path: "groups/:id",
+        name: RouteNames.groups,
+        component: () => import("@/pages/Groups.vue"),
+        meta: {
+          title: "groups",
+          titleMenu: "groups",
+          iconMenu: "collection",
+        },
+      },
+    ],
   },
   {
     path: "/products",

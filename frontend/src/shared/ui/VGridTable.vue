@@ -3,7 +3,7 @@ import VLoader from "./VLoader.vue";
 
 export interface GridTableColumn<T> {
   key: keyof T | string;
-  position?: string;
+  styles?: string;
   width?: string;
 }
 
@@ -65,8 +65,8 @@ defineEmits<{
           <div
             v-for="column in columns"
             :key="String(column.key)"
-            class="v-grid-table__cell align-items-center"
-            :class="column.position"
+            class="v-grid-table__cell d-flex align-items-center"
+            :class="column.styles"
           >
             <slot :name="`cell-${String(column.key)}`" :row="row">
               {{ String(row[column.key as keyof T] ?? "") }}
@@ -118,12 +118,15 @@ defineEmits<{
     .v-grid-table__row {
       background-color: $surface-bg;
       border-radius: 0.25rem;
-      padding: 0.75rem 1.25rem;
       transition: all 0.2s ease;
 
       &:hover {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       }
+    }
+
+    .v-grid-table__cell {
+      padding: 0.75rem 1.25rem;
     }
   }
 
@@ -131,7 +134,6 @@ defineEmits<{
     row-gap: 0;
 
     .v-grid-table__row {
-      padding: 1rem 0.75rem;
       border-bottom: 1px solid $border-color;
 
       &:last-child {
@@ -141,6 +143,10 @@ defineEmits<{
       &:hover {
         background-color: $body-bg;
       }
+    }
+
+    .v-grid-table__cell {
+      padding: 1rem 0.75rem;
     }
   }
 }

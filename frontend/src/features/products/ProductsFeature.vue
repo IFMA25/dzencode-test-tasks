@@ -11,21 +11,21 @@ import { formatDateLong, formatDateShort, toDate } from "@/shared/utils/formatDa
 import { useProductsStore } from "@/stores/useProductsStore";
 
 const columns: GridTableColumn<Product>[] = [
-  { key: "conditionDot", width: "minmax(0, 3%)", position: "d-flex justify-content-center" },
-  { key: "title", width: "minmax(0, 30%)", position: "d-flex align-items-center gap-3" },
-  { key: "type", width: "minmax(0, 10%)", position: "d-flex justify-content-center" },
-  { key: "condition", width: "minmax(0, 7%)", position: "d-flex justify-content-center" },
+  { key: "conditionDot", width: "minmax(0, 3%)", styles: "justify-content-center" },
+  { key: "title", width: "minmax(0, 30%)", styles: "gap-3" },
+  { key: "type", width: "minmax(0, 10%)", styles: "justify-content-center" },
+  { key: "condition", width: "minmax(0, 7%)", styles: "justify-content-center" },
   {
     key: "guarantee",
     width: "minmax(0, 20%)",
-    position: "d-flex flex-column justify-content-center",
+    styles: "flex-column justify-content-center",
   },
   {
     key: "price",
     width: "minmax(0, 10%)",
-    position: "d-flex flex-column justify-content-center",
+    styles: "flex-column justify-content-center",
   },
-  { key: "orderTitle", width: "minmax(0, 20%)", position: "d-flex" },
+  { key: "orderTitle", width: "minmax(0, 20%)" },
 ];
 
 const productsStore = useProductsStore();

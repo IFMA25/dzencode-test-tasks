@@ -25,5 +25,6 @@
   "errorMessageDeleteOrder": "Не удалось удалить приход",
   "errorMessageProductTypes": "Не удалось загрузить типы продуктов",
   "orderDeleted": "Приход успешно удален",
-  "type": "Тип"
+  "type": "Тип",
+  "addNewProduct": "Добавить новый товар"
 }

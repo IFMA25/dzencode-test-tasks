@@ -1,42 +1,79 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { useRoute, useRouter } from "vue-router";
 import { toast } from "vue-sonner";
 
 import OrderDeleteModal from "./components/OrderDeleteModal.vue";
+import type { OrderColumn } from "./types";
 import { getOrderTotalPrice } from "./utils";
 
+import { RouteNames } from "@/app/router/variables/routeNames";
 import type { Order } from "@/shared/types";
 import VButton from "@/shared/ui/VButton.vue";
-import VGridTable, { type GridTableColumn } from "@/shared/ui/VGridTable.vue";
+import VGridTable from "@/shared/ui/VGridTable.vue";
 import VModal from "@/shared/ui/VModal.vue";
 import VPageTitle from "@/shared/ui/VPageTitle.vue";
 import { formatCurrencyValue, getCurrencySymbol } from "@/shared/utils/format";
 import { formatDateLong, formatDateShort, toDate } from "@/shared/utils/formatDate";
 import { useOrdersStore } from "@/stores/useOrdersStore";
 
-const ordersStore = useOrdersStore();
-const { locale, t } = useI18n();
+const columns: OrderColumn[] = [
+  { key: "title", width: "minmax(0, 50%)" },
+  {
+    key: "count",
+    width: "minmax(0, 15%)",
+    groupsWidth: "minmax(0, 50%)",
+    styles: "justify-content-center",
+    isGroupsColumn: true,
+  },
+  {
+    key: "date",
+    width: "minmax(0, 15%)",
+    groupsWidth: "minmax(0, 40%)",
+    styles: "flex-column justify-content-center",
+    isGroupsColumn: true,
+  },
+  {
+    key: "totalPrice",
+    width: "minmax(0, 15%)",
+    styles: "flex-column justify-content-center",
+  },
+  {
+    key: "action",
+    width: "minmax(0, 5%)",
+    groupsWidth: "minmax(0, 10%)",
+    styles: "justify-content-center p-0 align-self-stretch",
+    isGroupsColumn: true,
+  },
+];
 
 const selectedOrder = ref<Order | null>(null);
 const showDeleteModal = ref(false);
 const showAddModal = ref(false);
 
-const columns: GridTableColumn<Order>[] = [
-  { key: "title", width: "minmax(0, 50%)", position: "d-flex" },
-  { key: "count", width: "minmax(0, 15%)", position: "d-flex justify-content-center" },
-  {
-    key: "date",
-    width: "minmax(0, 15%)",
-    position: "d-flex flex-column justify-content-center",
-  },
-  {
-    key: "totalPrice",
-    width: "minmax(0, 15%)",
-    position: "d-flex flex-column justify-content-center",
-  },
-  { key: "action", width: "minmax(0, 5%)", position: "d-flex justify-content-center" },
-];
+const ordersStore = useOrdersStore();
+const { locale, t } = useI18n();
+const router = useRouter();
+const route = useRoute();
+
+const ordersCount = computed(() => {
+  return ordersStore.ordersData.length;
+});
+const isGroupsRoute = computed(() => route.name === RouteNames.groups);
+const openOrderId = computed(() => (route.params.id ? Number(route.params.id) : null));
+
+const renderColumns = computed(() =>
+  isGroupsRoute.value
+    ? columns
+        .filter((column) => column.isGroupsColumn)
+        .map((column) => ({ ...column, width: column.groupsWidth ?? column.width }))
+    : columns,
+);
+
+const openGroup = (order: Order) => {
+  router.push({ name: RouteNames.groups, params: { id: order.id } });
+};
 
 const openDeleteModal = (order: Order) => {
   selectedOrder.value = order;
@@ -51,10 +88,6 @@ const confirmDeleteOrder = async () => {
   showDeleteModal.value = false;
   toast.success(t("orderDeleted"));
 };
-
-const ordersCount = computed(() => {
-  return ordersStore.ordersData.length;
-});
 
 onMounted(() => {
   ordersStore.loadOrders();
@@ -72,14 +105,14 @@ onMounted(() => {
   <VModal v-model:open="showAddModal" :title="$t('addIncomingOrder')" />
 
   <div class="d-flex flex-column h-100">
-    <div class="orders d-flex align-items-center gap-2 mb-4 flex-shrink-0">
+    <div class="orders orders-table__header d-flex align-items-center gap-2 flex-shrink-0">
       <VButton variant="add" icon="plus-lg" @click="showAddModal = true" />
       <VPageTitle :count="ordersCount" />
     </div>
 
     <VGridTable
       :rows="ordersStore.ordersData"
-      :columns="columns"
+      :columns="renderColumns"
       :loading="ordersStore.loading"
       :has-error="ordersStore.hasError"
       variant="card"
@@ -94,6 +127,7 @@ onMounted(() => {
             variant="circle"
             icon="list-ul"
             class="orders-table__btn-prod align-self-center"
+            @click="openGroup(row)"
           />
           <span class="orders-table__count-number align-self-end fw-semibold">
             {{ row.products?.length }}
@@ -121,7 +155,14 @@ onMounted(() => {
         </div>
       </template>
       <template #cell-action="{ row }">
+        <div
+          v-if="isGroupsRoute && row.id === openOrderId"
+          class="orders-table__open-indicator d-flex align-items-center justify-content-center h-100 w-100"
+        >
+          <i class="bi bi-chevron-right" />
+        </div>
         <VButton
+          v-else-if="!isGroupsRoute"
           variant="icon"
           icon="trash"
           class="orders-table__delete flex-grow-1 h-100"
@@ -138,6 +179,10 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .orders-table {
+  &__header {
+    min-height: $orders-header-height;
+  }
+
   &__table {
     color: $text-table;
   }
@@ -216,6 +261,11 @@ onMounted(() => {
     &:hover {
       color: $danger;
     }
+  }
+
+  &__open-indicator {
+    background-color: $text-muted;
+    color: $surface-bg;
   }
 }
 </style>

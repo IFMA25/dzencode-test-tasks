@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import VPageTitle from "@/shared/ui/VPageTitle.vue";
+import GroupsFeature from "@/features/groups/GroupsFeature.vue";
+import type { Order } from "@/shared/types";
+
+const { order } = defineProps<{
+  order: Order;
+}>();
 </script>
 
 <template>
-  <div class="groups-page">
-    <VPageTitle />
-  </div>
+  <GroupsFeature :order="order" />
 </template>
