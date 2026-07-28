@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import VPageTitle from "@/shared/ui/VPageTitle.vue";
+import ProductsFeature from "@/features/products/ProductsFeature.vue";
 </script>
 
 <template>
-  <div class="products-page">
-    <VPageTitle />
-  </div>
+  <ProductsFeature />
 </template>

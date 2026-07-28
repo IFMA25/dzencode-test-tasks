@@ -1,0 +1,243 @@
+const orderTitles = [
+  "Длинное название прихода",
+  "Длинное предлинное длинючее название прихода",
+  "Длинное длинное предлинное длиннючее придлиннючее название прихода",
+];
+
+const orderSeeds = [
+  { date: "2017-06-29 12:09:33", description: "desc" },
+  { date: "2018-03-14 09:45:00", description: "desc" },
+  { date: "2019-11-02 16:20:12", description: "desc" },
+  { date: "2020-05-18 08:30:45", description: "desc" },
+  { date: "2021-09-01 14:12:59", description: "desc" },
+  { date: "2021-12-20 10:05:22", description: "desc" },
+  { date: "2022-02-11 11:40:03", description: "desc" },
+  { date: "2022-06-07 13:25:47", description: "desc" },
+  { date: "2022-10-19 09:15:31", description: "desc" },
+  { date: "2023-01-05 15:50:18", description: "desc" },
+  { date: "2023-04-22 08:00:00", description: "desc" },
+  { date: "2023-08-30 17:33:09", description: "desc" },
+].map((seed, index) => ({ title: orderTitles[index % orderTitles.length], ...seed }));
+
+export const orders = orderSeeds.map((seed, index) => {
+  const id = index + 1;
+
+  return { ...seed, id, title: `${seed.title} #${id}` };
+});
+
+const productSeeds = [
+  {
+    title: "Dell 24 Monitor",
+    type: "Monitors",
+    spec: "24-inch IPS display",
+    usd: 100.5,
+    uah: 2600.5,
+    order: 1,
+  },
+  {
+    title: "Logitech Wireless Keyboard",
+    type: "Keyboards",
+    spec: "Wireless, USB receiver",
+    usd: 25,
+    uah: 650,
+    order: 1,
+  },
+  { title: "Mouse", type: "Mice", spec: "Wireless optical mouse", usd: 12, uah: 320, order: 1 },
+  {
+    title: "Samsung 27 Curved Monitor",
+    type: "Monitors",
+    spec: "27-inch curved display",
+    usd: 180.5,
+    uah: 4700,
+    order: 2,
+  },
+  {
+    title: "Logitech Mouse M185",
+    type: "Mice",
+    spec: "Wireless optical mouse",
+    usd: 12,
+    uah: 320,
+    order: 2,
+  },
+  {
+    title:
+      "Mechanical Keyboard with RGB Backlight and Programmable Macro Keys for Professional Gamers",
+    type: "Keyboards",
+    spec: "Mechanical, RGB backlight, hot-swappable switches",
+    usd: 95,
+    uah: 2450,
+    order: 2,
+  },
+  {
+    title: "HP LaserJet Printer",
+    type: "Printers",
+    spec: "Monochrome laser printer, USB/Wi-Fi",
+    usd: 210,
+    uah: 5500,
+    order: 2,
+  },
+  {
+    title: "Headset",
+    type: "Headphones",
+    spec: "Wired headset with microphone",
+    usd: 18,
+    uah: 470,
+    order: 3,
+  },
+  {
+    title: "Dell 24 Monitor",
+    type: "Monitors",
+    spec: "24-inch IPS display",
+    usd: 100,
+    uah: 2600,
+    order: 3,
+  },
+  {
+    title:
+      "Wireless Ergonomic Vertical Mouse Designed to Reduce Wrist Strain During Long Working Hours",
+    type: "Mice",
+    spec: "Ergonomic vertical design, wireless",
+    usd: 35,
+    uah: 910,
+    order: 3,
+  },
+  {
+    title: "Standard Office Keyboard",
+    type: "Keyboards",
+    spec: "Wired, membrane switches",
+    usd: 10,
+    uah: 260,
+    order: 3,
+  },
+  {
+    title:
+      "Business Laptop 15.6-inch with Full HD Display, 16GB RAM and 512GB SSD Storage for Office Work",
+    type: "Laptops",
+    spec: "15.6-inch, Full HD, 16GB RAM, 512GB SSD",
+    usd: 750,
+    uah: 19500,
+    order: 4,
+  },
+  {
+    title: "Compact Laptop",
+    type: "Laptops",
+    spec: "13.3-inch, lightweight",
+    usd: 620,
+    uah: 16100,
+    order: 4,
+  },
+  {
+    title: "LG UltraWide Monitor",
+    type: "Monitors",
+    spec: "34-inch ultrawide display",
+    usd: 320,
+    uah: 8300,
+    order: 4,
+  },
+  {
+    title:
+      "Noise Cancelling Over-Ear Headphones with Active Noise Cancellation and 30-Hour Battery Life",
+    type: "Headphones",
+    spec: "Wireless, active noise cancellation, 30h battery",
+    usd: 140,
+    uah: 3650,
+    order: 4,
+  },
+  { title: "Webcam", type: "Webcams", spec: "1080p USB webcam", usd: 22, uah: 570, order: 5 },
+  {
+    title: "Canon Photo Printer",
+    type: "Printers",
+    spec: "Color inkjet photo printer",
+    usd: 130,
+    uah: 3400,
+    order: 5,
+  },
+  {
+    title: "Docking Station",
+    type: "Accessories",
+    spec: "USB-C docking station with multiple ports",
+    usd: 65,
+    uah: 1690,
+    order: 5,
+  },
+  {
+    title: "USB Flash Drive 64GB",
+    type: "Accessories",
+    spec: "USB 3.0 flash drive, 64GB",
+    usd: 8,
+    uah: 210,
+    order: 6,
+  },
+  {
+    title:
+      "Portable External Hard Drive with 2TB Storage Capacity and USB 3.0 High-Speed Data Transfer",
+    type: "Accessories",
+    spec: "2TB, USB 3.0",
+    usd: 75,
+    uah: 1950,
+    order: 6,
+  },
+  {
+    title: "HDMI Cable",
+    type: "Accessories",
+    spec: "2m HDMI 2.1 cable",
+    usd: 6,
+    uah: 160,
+    order: 7,
+  },
+  {
+    title:
+      "Adjustable Laptop Stand with Aluminum Build for Improved Ergonomics and Better Airflow Cooling",
+    type: "Accessories",
+    spec: "Aluminum, adjustable height",
+    usd: 30,
+    uah: 780,
+    order: 7,
+  },
+  {
+    title: "Wired Mouse",
+    type: "Mice",
+    spec: "Basic wired optical mouse",
+    usd: 7,
+    uah: 180,
+    order: 8,
+  },
+  {
+    title: "27-inch 4K Professional Monitor for Photo and Video Editing Studio Workstations",
+    type: "Monitors",
+    spec: "27-inch, 4K UHD, color-accurate",
+    usd: 450,
+    uah: 11700,
+    order: 9,
+  },
+  {
+    title: "Portable Mini Printer",
+    type: "Printers",
+    spec: "Compact portable printer",
+    usd: 90,
+    uah: 2340,
+    order: 10,
+  },
+];
+
+export const products = productSeeds.map((seed, index) => ({
+  id: index + 1,
+  serialNumber: 1234 + index,
+  isNew: index % 3 !== 0,
+  photo: "https://placehold.co/80x80",
+  title: seed.title,
+  type: seed.type,
+  specification: seed.spec,
+  guarantee: {
+    start: orders[seed.order - 1].date,
+    end: orders[Math.min(seed.order, orders.length) - 1].date.replace(/^\d{4}/, (year) =>
+      String(Number(year) + 2),
+    ),
+  },
+  price: [
+    { value: seed.usd, symbol: "USD", isDefault: false },
+    { value: seed.uah, symbol: "UAH", isDefault: true },
+  ],
+  order: seed.order,
+  date: orders[seed.order - 1].date,
+}));

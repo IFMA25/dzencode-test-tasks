@@ -9,7 +9,7 @@ const { size = "md", color = "var(--bs-heading-color)" } = defineProps<{
 
 <template>
   <div
-    class="v-loader"
+    class="v-loader d-flex align-items-center justify-content-center"
     :style="{ color }"
     v-bind="$attrs"
   >
@@ -22,9 +22,6 @@ const { size = "md", color = "var(--bs-heading-color)" } = defineProps<{
 
 <style scoped lang="scss">
 .v-loader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 0.75rem;
 
   &__spinner {
@@ -41,9 +38,9 @@ const { size = "md", color = "var(--bs-heading-color)" } = defineProps<{
     }
 
     &--lg {
-      width: 2.5rem;
-      height: 2.5rem;
-      border-width: 4px;
+      width: 4rem;
+      height: 4rem;
+      border-width: 5px;
     }
   }
 }

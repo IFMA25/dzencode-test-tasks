@@ -1,18 +1,20 @@
 $enable-shadows: true;
 
-$primary: #69a821;
+$primary: #73b826;
 $secondary: #6c757d;
 $danger: #d11f28;
 $success: #689f38;
 $body-color: #2e3138;
 $headings-color: #1c1d20;
 $overlay: #2e313891;
-$body-bg: #fcfdff;
-$body-bg-secondary: #e7ebee;
+$body-bg: #ebeff3;
 $surface-bg: #fff;
 $sidebar-bg: #fdfeff;
 $border-color: #e5e7eb;
+$scrollbar-color: #c3c7cd;
 $text-muted: #9aa0a6;
+$text-table: #464d55;
+$surface-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 
 $font-family-sans-serif:
   "Inter",
@@ -24,11 +26,10 @@ $font-size: 1rem;
 $font-size-sm: 0.75rem;
 $font-size-md: 0.85rem;
 $font-size-lg: 1.25rem;
-$line-height: 1.5;
 
 $font-size-base: $font-size;
 $small-font-size: $font-size-sm;
-$line-height-base: $line-height;
+$line-height-base: 1.5;
 
 $font-weight-regular: 400;
 $font-weight-medium: 500;
@@ -43,7 +44,7 @@ $link-color: $body-color;
 $link-decoration: underline;
 
 $letter-spacing-uppercase: 0.05em;
-$surface-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 $top-menu-height: 6rem;
 $sidebar-header-height: 9rem;
-$surface-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+$page-padding-y: 5rem;
+$page-padding-x: 4rem;

@@ -4,10 +4,7 @@
     <p class="not-found__text">
       {{ $t("notFound") }}
     </p>
-    <RouterLink
-      to="/"
-      class="not-found__link"
-    >
+    <RouterLink to="/" class="not-found__link">
       {{ $t("returnBack") }}
     </RouterLink>
   </div>

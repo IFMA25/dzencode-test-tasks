@@ -1,17 +1,28 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
+
+defineProps<{
+  count?: number;
+}>();
 </script>
 
 <template>
-  <h1 class="v-page-title">
-    {{ $t(useRoute().meta.title ?? "") }}
-  </h1>
+  <div class="v-page-title d-flex align-items-center gap-2">
+    <h1 class="v-page-title__text m-0 fw-semibold text-body">
+      {{ $t(useRoute().meta.title ?? "") }}
+    </h1>
+    <template v-if="count !== undefined">
+      <span>/</span>
+      <span class="v-page-title__count fw-semibold text-body">{{ count }}</span>
+    </template>
+  </div>
 </template>
 
 <style scoped lang="scss">
 .v-page-title {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-semibold;
-  color: $headings-color;
+  &__text,
+  &__count {
+    font-size: $font-size-lg;
+  }
 }
 </style>

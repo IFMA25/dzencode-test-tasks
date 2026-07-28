@@ -15,15 +15,8 @@ defineProps<{
       active-class="nav-item__link--active"
     >
       <Transition name="nav-item-content">
-        <i
-          v-if="collapsed"
-          class="nav-item__icon bi"
-          :class="`bi-${item.icon}`"
-        />
-        <span
-          v-else
-          class="nav-item__text position-relative text-uppercase"
-        >
+        <i v-if="collapsed" class="nav-item__icon bi" :class="`bi-${item.icon}`" />
+        <span v-else class="nav-item__text position-relative text-uppercase d-inline-block">
           {{ $t(item.text) }}
         </span>
       </Transition>
@@ -34,9 +27,9 @@ defineProps<{
 <style scoped lang="scss">
 .nav-item {
   &__link {
-    color: $body-color;
     font-weight: $font-weight-medium;
     line-height: 1.5rem;
+    transition: all 0.2s ease;
 
     &:hover {
       color: $text-muted;
@@ -44,8 +37,6 @@ defineProps<{
   }
 
   &__text {
-    position: relative;
-    display: inline-block;
     letter-spacing: $letter-spacing-uppercase;
 
     &::after {

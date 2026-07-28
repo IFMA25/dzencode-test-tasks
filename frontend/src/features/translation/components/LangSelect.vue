@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { useLanguageStore } from "@/features/translation/store/useLanguageStore";
 import { isSupportedLocale, supportedLocales } from "@/shared/i18n/config/locale";
 import VSelect from "@/shared/ui/VSelect.vue";
+import { useLanguageStore } from "@/stores/useLanguageStore";
 
 const localeLabels: Record<string, string> = {
   en: "EN",
@@ -18,17 +18,23 @@ const localeOptions = computed(() =>
     label: localeLabels[locale],
   })),
 );
+
+const modelLang = computed({
+  get: () => language.currentLang,
+  set: (value: string) => {
+    if (isSupportedLocale(value)) language.setLanguage(value);
+  },
+});
 </script>
 
 <template>
   <VSelect
     id="language-switcher"
-    v-model="language.currentLang"
+    v-model="modelLang"
     :options="localeOptions"
     label="label"
     track-by="key"
     :close-on-select="true"
     size="sm"
-    @update:model-value="(value: string) => isSupportedLocale(value) && language.setLanguage(value)"
   />
 </template>

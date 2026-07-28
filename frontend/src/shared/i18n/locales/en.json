@@ -8,5 +8,22 @@
   "profileSettings": "Profile settings",
   "users": "Users",
   "notFound": "Page not found",
-  "returnBack": "Return back"
+  "returnBack": "Return back",
+  "noData": "No data",
+  "emptyOrdersTable": "Add new incoming order to display",
+  "productCount": "Products",
+  "deleteModalTitle": "Are you sure you want to delete this order?",
+  "addIncomingOrder": "Add new incoming order",
+  "modalCancel": "Cancel",
+  "modalDelete": "Delete",
+  "allTypes": "All types",
+  "emptyProductsTable": "Add new products to display",
+  "productNew": "New",
+  "productUsed": "Used",
+  "errorMessageProducts": "Failed to load products",
+  "errorMessageOrders": "Failed to load orders",
+  "errorMessageDeleteOrder": "Failed to delete order",
+  "errorMessageProductTypes": "Failed to load product types",
+  "orderDeleted": "Order deleted successfully",
+  "type": "Type"
 }

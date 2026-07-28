@@ -74,11 +74,7 @@ const closeOnSelectComputed = computed(() => closeOnSelectProp ?? !multiple);
 
 <template>
   <div class="v-select d-flex align-items-center gap-2">
-    <label
-      v-if="labelText"
-      :for="id"
-      class="v-select__label text-nowrap"
-    >
+    <label v-if="labelText" :for="id" class="v-select__label text-nowrap">
       {{ labelText }}
     </label>
     <Multiselect
@@ -96,12 +92,12 @@ const closeOnSelectComputed = computed(() => closeOnSelectProp ?? !multiple);
       :label="label"
       :track-by="trackBy"
       :disabled="disabled"
-      :class="`v-select__field v-select__field--${size}`"
+      :class="`v-select__field v-select__field--${size} position-relative text-body`"
     >
       <template #caret="{ toggle }">
         <button
           type="button"
-          class="multiselect__select v-select__caret"
+          class="multiselect__select v-select__caret position-absolute top-0 end-0 d-flex align-items-center justify-content-center h-100 border-0 bg-transparent"
           @mousedown.prevent.stop="toggle"
         >
           <i class="bi bi-chevron-down" />
@@ -126,16 +122,7 @@ $select-max-width: 20rem;
   }
 
   &__caret {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
     padding: 0 0.75rem;
-    border: 0;
-    background: transparent;
 
     i {
       color: $text-muted;
@@ -148,9 +135,7 @@ $select-max-width: 20rem;
   }
 
   :deep(.multiselect) {
-    position: relative;
     min-height: 0;
-    color: $body-color;
   }
 
   :deep(.multiselect__input) {
@@ -165,7 +150,7 @@ $select-max-width: 20rem;
     overflow: hidden;
     border: 1px solid $border-color;
     border-radius: 0.5rem;
-    background-color: $body-bg-secondary;
+    background-color: $surface-bg;
     white-space: normal;
     word-break: break-word;
     transition: border-color 0.15s ease;
@@ -209,6 +194,9 @@ $select-max-width: 20rem;
     min-width: 100%;
     width: max-content;
     max-width: $select-max-width;
+    max-height: fit-content !important;
+    height: auto;
+    overflow: visible;
     margin-top: 0.25rem;
     border: 1px solid $border-color;
     border-radius: 0.5rem;
@@ -238,7 +226,7 @@ $select-max-width: 20rem;
   }
 
   :deep(.multiselect__option--highlight) {
-    background-color: $body-bg-secondary;
+    background-color: $body-bg;
     color: $body-color;
   }
 
@@ -249,7 +237,7 @@ $select-max-width: 20rem;
   }
 
   :deep(.multiselect__option--selected.multiselect__option--highlight) {
-    background-color: $body-bg-secondary;
+    background-color: $body-bg;
   }
 
   :deep(.multiselect--disabled) {

@@ -13,13 +13,13 @@ const router = useRouter();
       <img
         src="/avatar-photo.png"
         alt="avatar-photo"
-        class="sidebar-header__avatar-img rounded-circle w-100 h-100"
+        class="sidebar-header__avatar-img rounded-circle w-100 h-100 border object-fit-cover"
       />
 
       <VButton
         variant="circle"
         icon="gear"
-        class="sidebar-header__settings"
+        class="sidebar-header__settings position-absolute"
         @click="router.push({ name: RouteNames.profileSettings })"
       />
     </div>
@@ -34,13 +34,10 @@ const router = useRouter();
   }
 
   &__avatar-img {
-    border: 1px solid $border-color;
-    object-fit: cover;
     object-position: center top;
   }
 
   &__settings {
-    position: absolute;
     right: -0.25rem;
     bottom: -0.25rem;
   }
