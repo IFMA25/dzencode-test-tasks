@@ -26,29 +26,21 @@ const toggle = () => {
 
 <template>
   <aside
-    class="sidebar position-relative"
+    class="sidebar position-relative flex-shrink-0 border-end"
     :class="{ 'sidebar--collapsed': !isOpen }"
   >
     <SidebarHeader v-if="isOpen" />
 
-    <nav
-      class="sidebar__nav"
-      :class="{ 'sidebar__nav--offset': !isOpen }"
-    >
+    <nav class="sidebar__nav" :class="{ 'sidebar__nav--offset': !isOpen }">
       <ul class="sidebar__list d-flex flex-column gap-2 list-unstyled m-0">
-        <SidebarNavItem
-          v-for="item in navItems"
-          :key="item.to"
-          :item="item"
-          :collapsed="!isOpen"
-        />
+        <SidebarNavItem v-for="item in navItems" :key="item.to" :item="item" :collapsed="!isOpen" />
       </ul>
     </nav>
 
     <VButton
       variant="circle"
       :icon="isOpen ? 'chevron-left' : 'chevron-right'"
-      class="sidebar__toggle"
+      class="sidebar__toggle position-absolute end-0"
       @click="toggle"
     />
   </aside>
@@ -61,7 +53,6 @@ $sidebar-width-collapsed: 4.5rem;
 .sidebar {
   width: $sidebar-width;
   background-color: $sidebar-bg;
-  border-right: 1px solid $border-color;
   box-shadow: $surface-shadow;
   transition: all 0.2s ease;
 
@@ -74,9 +65,7 @@ $sidebar-width-collapsed: 4.5rem;
   }
 
   &__toggle {
-    position: absolute;
     top: 2rem;
-    right: 0;
     transform: translate(50%, -50%);
   }
 }

@@ -1,8 +1,10 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
+import { STORAGE_KEYS } from "@/shared/constants";
 import i18n from "@/shared/i18n";
 import { defaultLocale, isSupportedLocale, type Locale } from "@/shared/i18n/config/locale";
+import { getStorageItem, setStorageItem } from "@/shared/utils/webStorage";
 
 const normalizeLocale = (raw: string) => raw.toLowerCase().split("-")[0];
 
@@ -12,12 +14,12 @@ export const useLanguageStore = defineStore("language", () => {
   const setLanguage = (lang: Locale) => {
     currentLang.value = lang;
     i18n.global.locale.value = lang;
-    localStorage.setItem("lang", lang);
-    document.querySelector("html")?.setAttribute("lang", lang);
+    setStorageItem(STORAGE_KEYS.lang, lang);
+    document.querySelector("html")?.setAttribute(STORAGE_KEYS.lang, lang);
   };
 
   const initLanguage = () => {
-    const savedLang = localStorage.getItem("lang");
+    const savedLang = getStorageItem(STORAGE_KEYS.lang);
     const normalizedSavedLang = savedLang ? normalizeLocale(savedLang) : "";
     if (isSupportedLocale(normalizedSavedLang)) {
       setLanguage(normalizedSavedLang);

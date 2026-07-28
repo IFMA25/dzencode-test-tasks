@@ -20,12 +20,12 @@ onUnmounted(() => {
     <i
       class="active-sessions__icon bi bi-circle-fill"
       :class="{
-        'active-sessions__icon--active animate__animated animate__flash animate__infinite':
-          count > 0,
+        'active-sessions__icon--active text-success': count > 0,
+        'animate__animated animate__flash animate__infinite': count > 0,
       }"
     />
     <span class="active-sessions__text">{{ $t("activeSessions") }}</span>
-    <span class="active-sessions__number">{{ count }}</span>
+    <span class="active-sessions__number fw-semibold">{{ count }}</span>
   </div>
 </template>
 
@@ -38,7 +38,6 @@ onUnmounted(() => {
 
   &__number {
     font-size: $font-size-base;
-    font-weight: $font-weight-semibold;
   }
 
   &__icon {
@@ -46,7 +45,6 @@ onUnmounted(() => {
     color: $text-muted;
 
     &--active {
-      color: $success;
       --animate-duration: 3s;
     }
   }

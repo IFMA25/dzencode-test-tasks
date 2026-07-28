@@ -11,11 +11,12 @@ import VButton from "@/shared/ui/VButton.vue";
 import VGridTable, { type GridTableColumn } from "@/shared/ui/VGridTable.vue";
 import VModal from "@/shared/ui/VModal.vue";
 import VPageTitle from "@/shared/ui/VPageTitle.vue";
-import { formatDateLong, formatDateShort, getCurrencySymbol } from "@/shared/utils";
+import { getCurrencySymbol } from "@/shared/utils/format";
+import { formatDateLong, formatDateShort, toDate } from "@/shared/utils/formatDate";
 import { useOrdersStore } from "@/stores/useOrdersStore";
 
 const ordersStore = useOrdersStore();
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 
 const selectedOrder = ref<Order | null>(null);
 const showDeleteModal = ref(false);
@@ -37,22 +38,18 @@ const columns: GridTableColumn<Order>[] = [
   { key: "action", width: "minmax(0, 5%)", position: "d-flex justify-content-center" },
 ];
 
-const toDate = (date: string) => new Date(date.replace(" ", "T"));
-
 const openDeleteModal = (order: Order) => {
   selectedOrder.value = order;
   showDeleteModal.value = true;
 };
 
 const confirmDeleteOrder = async () => {
-  await ordersStore.deleteOrder(selectedOrder.value!.id);
+  const isDeleted = await ordersStore.deleteOrder(selectedOrder.value!.id);
 
-  if (ordersStore.errorMessage) {
-    toast.error(ordersStore.errorMessage);
-    return;
-  }
+  if (!isDeleted) return;
 
   showDeleteModal.value = false;
+  toast.success(t("orderDeleted"));
 };
 
 const ordersCount = computed(() => {
@@ -72,83 +69,70 @@ onMounted(() => {
     @confirm="confirmDeleteOrder"
   />
 
-  <VModal
-    v-model:open="showAddModal"
-    :title="$t('addIncomingOrder')"
-  />
+  <VModal v-model:open="showAddModal" :title="$t('addIncomingOrder')" />
 
   <div class="d-flex flex-column h-100">
     <div class="orders d-flex align-items-center gap-2 mb-4 flex-shrink-0">
-      <VButton
-        variant="add"
-        icon="plus-lg"
-        @click="showAddModal = true"
-      />
-      <VPageTitle class="m-0" />
-      <span>/</span>
-      <span class="orders__count">{{ ordersCount }}</span>
+      <VButton variant="add" icon="plus-lg" @click="showAddModal = true" />
+      <VPageTitle :count="ordersCount" />
     </div>
 
-    <div class="orders-table-scroll flex-grow-1 overflow-y-auto">
-      <VGridTable
-        :rows="ordersStore.ordersData"
-        :columns="columns"
-        :loading="ordersStore.loading"
-        variant="card"
-        class="orders__table orders-table__table"
-      >
-        <template #cell-title="{ row }">
-          <span class="orders-table__title">{{ row.title }}</span>
-        </template>
-        <template #cell-count="{ row }">
-          <div class="orders-table__count d-grid align-items-center">
-            <VButton
-              variant="circle"
-              icon="list-ul"
-              class="orders-table__btn-prod align-self-center"
-            />
-            <span class="orders-table__count-number align-self-end">
-              {{ row.products?.length }}
-            </span>
-            <span class="orders-table__count-text align-self-start">{{ $t("productCount") }}</span>
-          </div>
-        </template>
-        <template #cell-date="{ row }">
-          <div class="orders-table__date orders-table__date--short">
-            {{ formatDateShort(toDate(row.date)) }}
-          </div>
-          <div class="orders-table__date orders-table__date--long">
-            {{ formatDateLong(toDate(row.date), locale) }}
-          </div>
-        </template>
-        <template #cell-totalPrice="{ row }">
-          <div
-            v-for="price in getOrderTotalPrice(row)"
-            :key="price.symbol"
-            class="orders-table__price"
-            :class="{ 'orders-table__price--default': price.isDefault }"
-          >
-            {{ price.value }}
-            <span class="orders-table__price-symbol">{{ getCurrencySymbol(price.symbol) }}</span>
-          </div>
-        </template>
-        <template #cell-action="{ row }">
+    <VGridTable
+      :rows="ordersStore.ordersData"
+      :columns="columns"
+      :loading="ordersStore.loading"
+      :has-error="ordersStore.hasError"
+      variant="card"
+      class="orders__table orders-table__table flex-grow-1"
+    >
+      <template #cell-title="{ row }">
+        <span class="orders-table__title text-decoration-underline">{{ row.title }}</span>
+      </template>
+      <template #cell-count="{ row }">
+        <div class="orders-table__count d-grid align-items-center">
           <VButton
-            variant="icon"
-            icon="trash"
-            class="orders-table__delete flex-grow-1 h-100"
-            @click="openDeleteModal(row)"
+            variant="circle"
+            icon="list-ul"
+            class="orders-table__btn-prod align-self-center"
           />
-        </template>
-
-        <template
-          v-if="ordersStore.errorMessage || !ordersStore.ordersData.length"
-          #message
+          <span class="orders-table__count-number align-self-end fw-semibold">
+            {{ row.products?.length }}
+          </span>
+          <span class="orders-table__count-text align-self-start">{{ $t("productCount") }}</span>
+        </div>
+      </template>
+      <template #cell-date="{ row }">
+        <div class="orders-table__date orders-table__date--short">
+          {{ formatDateShort(toDate(row.date)) }}
+        </div>
+        <div class="orders-table__date orders-table__date--long">
+          {{ formatDateLong(toDate(row.date), locale) }}
+        </div>
+      </template>
+      <template #cell-totalPrice="{ row }">
+        <div
+          v-for="price in getOrderTotalPrice(row)"
+          :key="price.symbol"
+          class="orders-table__price"
+          :class="{ 'orders-table__price--default': price.isDefault }"
         >
-          {{ ordersStore.errorMessage || $t("emptyOrdersTable") }}
-        </template>
-      </VGridTable>
-    </div>
+          {{ price.value }}
+          <span class="orders-table__price-symbol">{{ getCurrencySymbol(price.symbol) }}</span>
+        </div>
+      </template>
+      <template #cell-action="{ row }">
+        <VButton
+          variant="icon"
+          icon="trash"
+          class="orders-table__delete flex-grow-1 h-100"
+          @click="openDeleteModal(row)"
+        />
+      </template>
+
+      <template v-if="ordersStore.hasError || !ordersStore.ordersData.length" #message>
+        {{ ordersStore.hasError ? t("errorMessageOrders") : t("emptyOrdersTable") }}
+      </template>
+    </VGridTable>
   </div>
 </template>
 
@@ -159,7 +143,6 @@ onMounted(() => {
   }
 
   &__title {
-    text-decoration: underline;
     text-underline-offset: 0.25rem;
 
     @media (max-width: 992px) {
@@ -217,7 +200,6 @@ onMounted(() => {
   &__count-number {
     grid-area: count-number;
     font-size: $font-size-lg;
-    font-weight: $font-weight-semibold;
 
     @media (max-width: 1200px) {
       font-size: $font-size;

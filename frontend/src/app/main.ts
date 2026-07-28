@@ -7,8 +7,8 @@ import "@/app/main.scss";
 
 import App from "@/app/App.vue";
 import router from "@/app/router";
-import { useLanguageStore } from "@/features/translation/store/useLanguageStore";
 import i18n from "@/shared/i18n";
+import { useLanguageStore } from "@/stores/useLanguageStore";
 
 const app = createApp(App);
 

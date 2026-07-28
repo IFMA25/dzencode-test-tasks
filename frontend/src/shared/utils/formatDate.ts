@@ -1,4 +1,6 @@
-export const capitalize = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
+import { capitalize } from "./format";
+
+export const toDate = (date: string) => new Date(date.replace(" ", "T"));
 
 export const formatDateLong = (date: Date, locale: string) => {
   const parts = new Intl.DateTimeFormat(locale, {
@@ -16,5 +18,3 @@ export const formatDateLong = (date: Date, locale: string) => {
 
 export const formatDateShort = (date: Date) =>
   `${String(date.getDate()).padStart(2, "0")} / ${String(date.getMonth() + 1).padStart(2, "0")}`;
-
-export const getCurrencySymbol = (symbol: string) => (symbol === "USD" ? "$" : symbol);

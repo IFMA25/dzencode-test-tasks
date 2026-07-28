@@ -14,12 +14,22 @@ router.get("/orders", (req, res) => {
 });
 
 router.get("/products", (req, res) => {
-  const result = products.map((product) => ({
-    ...product,
-    orderTitle: orders.find((order) => order.id === product.order)?.title ?? "",
-  }));
+  const { type } = req.query;
+
+  const result = products
+    .filter((product) => !type || product.type === type)
+    .map((product) => ({
+      ...product,
+      orderTitle: orders.find((order) => order.id === product.order)?.title ?? "",
+    }));
 
   res.json(result);
+});
+
+router.get("/products/types", (req, res) => {
+  const types = [...new Set(products.map((product) => product.type))];
+
+  res.json(types);
 });
 
 router.delete("/orders/:id", (req, res) => {

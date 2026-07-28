@@ -3,7 +3,8 @@ import { useNow } from "@vueuse/core";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
-import { capitalize, formatDateLong } from "@/shared/utils";
+import { capitalize } from "@/shared/utils/format";
+import { formatDateLong } from "@/shared/utils/formatDate";
 
 const now = useNow();
 const { locale } = useI18n();
@@ -25,13 +26,13 @@ const time = computed(() =>
 
 <template>
   <div class="current-date-time text-center">
-    <div class="current-date-time__weekday">
+    <div class="current-date-time__weekday fw-semibold">
       {{ weekday }}
     </div>
-    <div class="current-date-time__row d-flex align-items-center">
+    <div class="current-date-time__row d-flex align-items-center gap-3 fw-semibold">
       <span>{{ date }}</span>
-      <div class="current-date-time__time d-flex align-items-center">
-        <i class="current-date-time__icon bi bi-clock" />
+      <div class="current-date-time__time d-flex align-items-center gap-2">
+        <i class="current-date-time__icon bi bi-clock text-primary" />
         <span>{{ time }}</span>
       </div>
     </div>
@@ -40,22 +41,11 @@ const time = computed(() =>
 
 <style scoped lang="scss">
 .current-date-time {
-  &__weekday {
-    font-weight: $font-weight-semibold;
-  }
-
   &__row {
-    gap: 1rem;
     font-size: $font-size-md;
-    font-weight: $font-weight-semibold;
-  }
-
-  &__time {
-    gap: 0.5rem;
   }
 
   &__icon {
-    color: $primary;
     font-size: $font-size-md;
   }
 

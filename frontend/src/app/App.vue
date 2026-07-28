@@ -8,8 +8,5 @@ import "vue-sonner/style.css";
 
 <template>
   <MasterLayout />
-  <Toaster
-    position="top-right"
-    rich-colors
-  />
+  <Toaster position="top-right" rich-colors />
 </template>

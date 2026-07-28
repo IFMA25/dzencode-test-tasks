@@ -17,10 +17,7 @@ const isSearchOpen = ref(false);
 <template>
   <header class="top-menu sticky-top w-100">
     <div class="container d-flex align-items-center gap-2 py-2">
-      <VLogo
-        v-if="!isSearchOpen"
-        class="me-0 me-sm-3"
-      />
+      <VLogo v-if="!isSearchOpen" class="me-0 me-sm-3" />
 
       <VInput
         type="search"
@@ -61,7 +58,7 @@ const isSearchOpen = ref(false);
     min-height: $top-menu-height;
   }
 
-  :deep(.top-menu__search--open) {
+  .top-menu__search--open {
     flex: 1;
     max-width: none;
   }

@@ -12,11 +12,13 @@ const {
   columns = [],
   loading = false,
   variant = "card",
+  hasError = false,
 } = defineProps<{
   rows: T[];
   columns?: GridTableColumn<T>[];
   loading?: boolean;
   variant?: "card" | "list";
+  hasError?: boolean;
 }>();
 
 defineEmits<{
@@ -26,52 +28,50 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="v-grid-table position-relative h-100">
-    <div
-      v-if="$slots.toolbar"
-      class="v-grid-table__toolbar"
-    >
+  <div class="v-grid-table position-relative h-100 d-flex flex-column">
+    <div v-if="$slots.toolbar" class="v-grid-table__toolbar flex-shrink-0 mb-3">
       <slot name="toolbar" />
     </div>
 
-    <VLoader
-      v-if="loading"
-      size="lg"
-      color="var(--bs-primary)"
-      class="v-grid-table__loader position-absolute top-50 start-50 translate-middle"
-    />
+    <div class="v-grid-table__body flex-grow-1 overflow-y-auto">
+      <VLoader
+        v-if="loading"
+        size="lg"
+        color="var(--bs-primary)"
+        class="v-grid-table__loader position-absolute top-50 start-50 translate-middle z-1"
+      />
 
-    <div
-      v-else-if="$slots.message"
-      class="v-grid-table__message text-center text-muted py-5"
-    >
-      <slot name="message" />
-    </div>
-
-    <div
-      v-else
-      class="v-grid-table__grid"
-      :class="`v-grid-table__grid--${variant}`"
-      :style="{ gridTemplateColumns: columns.map((column) => column.width ?? '1fr').join(' ') }"
-    >
       <div
-        v-for="row in rows"
-        :key="row.id"
-        class="v-grid-table__row"
-        @click="$emit('select', row)"
+        v-else-if="$slots.message"
+        class="v-grid-table__message text-center py-5"
+        :class="hasError ? 'text-danger' : 'text-muted'"
+      >
+        <slot name="message" />
+      </div>
+
+      <div
+        v-else
+        class="v-grid-table__grid d-grid"
+        :class="`v-grid-table__grid--${variant}`"
+        :style="{ gridTemplateColumns: columns.map((column) => column.width ?? '1fr').join(' ') }"
       >
         <div
-          v-for="column in columns"
-          :key="String(column.key)"
-          class="v-grid-table__cell"
-          :class="column.position"
+          v-for="row in rows"
+          :key="row.id"
+          class="v-grid-table__row d-grid"
+          :class="{ border: variant === 'card' }"
+          @click="$emit('select', row)"
         >
-          <slot
-            :name="`cell-${String(column.key)}`"
-            :row="row"
+          <div
+            v-for="column in columns"
+            :key="String(column.key)"
+            class="v-grid-table__cell align-items-center"
+            :class="column.position"
           >
-            {{ String(row[column.key as keyof T] ?? "") }}
-          </slot>
+            <slot :name="`cell-${String(column.key)}`" :row="row">
+              {{ String(row[column.key as keyof T] ?? "") }}
+            </slot>
+          </div>
         </div>
       </div>
     </div>
@@ -80,33 +80,35 @@ defineEmits<{
 
 <style scoped lang="scss">
 .v-grid-table {
-  &__loader {
-    z-index: 1;
+  &__body {
+    scrollbar-width: thin;
+    scrollbar-color: $scrollbar-color transparent;
+
+    &::-webkit-scrollbar {
+      width: 0.25rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 0.25rem;
+      background-color: $scrollbar-color;
+    }
   }
 
   &__grid {
-    display: grid;
-
     @media (max-width: 992px) {
       min-width: 55rem;
     }
   }
 
-  &__cell {
-    align-items: center;
-  }
-
   &__row {
-    display: grid;
     grid-template-columns: subgrid;
     grid-column: 1 / -1;
-    align-items: stretch;
     cursor: pointer;
     transition: background-color 0.15s ease;
-  }
-
-  &__cell {
-    padding: 0 0.5rem;
   }
 
   &__grid--card {
@@ -114,7 +116,6 @@ defineEmits<{
 
     .v-grid-table__row {
       background-color: $surface-bg;
-      border: 1px solid $border-color;
       border-radius: 0.25rem;
       padding: 0.75rem 1.25rem;
       transition: all 0.2s ease;
@@ -137,7 +138,7 @@ defineEmits<{
       }
 
       &:hover {
-        background-color: $body-bg-secondary;
+        background-color: $body-bg;
       }
     }
   }

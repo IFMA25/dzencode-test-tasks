@@ -222,6 +222,7 @@ export default [
           ignoreTemplateLiterals: true,
           ignoreRegExpLiterals: true,
           ignoreComments: true,
+          ignorePattern: "^\\s*:?class=",
         },
       ],
       "style/indent": ["error", 2, { SwitchCase: 1 }],

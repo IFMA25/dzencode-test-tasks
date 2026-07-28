@@ -16,14 +16,13 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <VModal
-    v-model:open="open"
-    :title="$t('deleteModalTitle')"
-  >
+  <VModal v-model:open="open" :title="$t('deleteModalTitle')">
     <div
       class="order-delete-modal__preview d-flex align-items-center justify-content-between gap-2"
     >
-      <span class="order-delete-modal__title w-75">{{ order?.title }}</span>
+      <span class="order-delete-modal__title w-75 text-decoration-underline">
+        {{ order?.title }}
+      </span>
       <span class="w-25 text-center"> {{ order?.products.length }} {{ $t("productCount") }} </span>
     </div>
 
@@ -50,7 +49,6 @@ const emit = defineEmits<{
 <style scoped lang="scss">
 .order-delete-modal {
   &__title {
-    text-decoration: underline;
     text-underline-offset: 0.25rem;
   }
 

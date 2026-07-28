@@ -32,12 +32,12 @@ const isDisabled = computed(() => disabled || loading);
 const isRouterLink = computed(() => !!to);
 
 const variantBase: Record<string, string> = {
-  primary: "btn rounded-pill v-button--primary",
-  text: "btn btn-link text-decoration-none v-button--text",
-  icon: "btn btn-link text-decoration-none v-button--icon",
-  circle: "btn btn-light rounded-circle p-0 v-button--circle",
-  add: "btn rounded-circle p-0 v-button--add",
-  nav: "v-button--nav",
+  primary: "btn rounded-pill fw-semibold v-button--primary",
+  text: "btn btn-link text-decoration-none rounded-pill v-button--text",
+  icon: "btn btn-link text-decoration-none p-1 lh-1 v-button--icon",
+  circle: "btn btn-light rounded-circle border p-0 v-button--circle",
+  add: "btn rounded-circle bg-primary p-0 v-button--add",
+  nav: "d-block w-100 border-0 bg-transparent text-body text-center text-uppercase text-decoration-none v-button--nav",
 };
 
 const bgColorVariants = ["primary"];
@@ -64,21 +64,10 @@ const variantClass = computed(() => {
     class="v-button d-inline-flex align-items-center justify-content-center gap-2"
     :class="variantClass"
   >
-    <VLoader
-      v-if="loading"
-      size="sm"
-      :color="textColor ? `var(--bs-${textColor})` : undefined"
-    />
-    <i
-      v-else-if="icon"
-      class="bi"
-      :class="[`bi-${icon}`, textColor ? `text-${textColor}` : '']"
-    />
+    <VLoader v-if="loading" size="sm" :color="textColor ? `var(--bs-${textColor})` : undefined" />
+    <i v-else-if="icon" class="bi" :class="[`bi-${icon}`, textColor ? `text-${textColor}` : '']" />
 
-    <span
-      v-if="text"
-      :class="textColor ? `text-${textColor}` : ''"
-    >
+    <span v-if="text" :class="textColor ? `text-${textColor}` : ''">
       {{ text }}
     </span>
   </component>
@@ -90,58 +79,43 @@ const variantClass = computed(() => {
 
   &--primary {
     padding: 0.5rem 1.25rem;
-    font-weight: $font-weight-semibold;
   }
 
   &--text {
     padding: 0.5rem 1.25rem;
     border: 1px solid transparent;
-    border-radius: 50rem;
 
     &:hover {
       border-color: $border-color;
-      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      box-shadow: var(--bs-box-shadow-sm);
     }
   }
 
   &--icon {
-    padding: 0.25rem;
     font-size: 1.1rem;
-    line-height: 1;
   }
 
   &--circle {
     width: 2rem;
     height: 2rem;
     font-size: 1rem;
-    border: 1px solid $border-color;
   }
 
   &--add {
     width: 2.25rem;
     height: 2.25rem;
-    background-color: $primary;
     border: 3px solid $success;
     color: $surface-bg;
     font-size: 1.1rem;
   }
 
   &--nav {
-    display: block;
-    width: 100%;
     padding: 0.75rem 0;
-    border: 0;
-    background: transparent;
-    color: $body-color;
     font-weight: $font-weight-medium;
     letter-spacing: $letter-spacing-uppercase;
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: none;
 
     &-active {
       border-bottom: 2px solid $primary;
-      color: $body-color;
     }
   }
 }

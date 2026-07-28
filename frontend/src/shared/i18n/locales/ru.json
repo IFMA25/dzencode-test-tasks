@@ -15,5 +15,15 @@
   "deleteModalTitle": "Вы уверены, что хотите удалить этот приход?",
   "addIncomingOrder": "Добавить новый приход",
   "modalCancel": "Отменить",
-  "modalDelete": "Удалить"
+  "modalDelete": "Удалить",
+  "allTypes": "Все типы",
+  "emptyProductsTable": "Добавьте новые продукты для отображения",
+  "productNew": "Новый",
+  "productUsed": "Б/У",
+  "errorMessageProducts": "Не удалось загрузить продукты",
+  "errorMessageOrders": "Не удалось загрузить приходы",
+  "errorMessageDeleteOrder": "Не удалось удалить приход",
+  "errorMessageProductTypes": "Не удалось загрузить типы продуктов",
+  "orderDeleted": "Приход успешно удален",
+  "type": "Тип"
 }

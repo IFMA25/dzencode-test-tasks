@@ -30,19 +30,13 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
         @click.self="close"
       >
         <div class="modal-panel w-100 mx-3 rounded-3 overflow-hidden">
-          <div class="modal-panel__header d-flex align-items-center justify-content-between">
-            <h3
-              v-if="title"
-              class="modal-panel__title m-0"
-            >
+          <div
+            class="modal-panel__header d-flex align-items-center justify-content-between border-bottom"
+          >
+            <h3 v-if="title" class="modal-panel__title m-0 fw-semibold text-body">
               {{ title }}
             </h3>
-            <VButton
-              variant="icon"
-              icon="x"
-              class="modal-panel__close-btn"
-              @click="close"
-            />
+            <VButton variant="icon" icon="x" class="modal-panel__close-btn" @click="close" />
           </div>
 
           <div class="modal-panel__content">
@@ -51,7 +45,7 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
 
           <div
             v-if="$slots.footer"
-            class="modal-panel__footer d-flex justify-content-end"
+            class="modal-panel__footer d-flex justify-content-end py-3 px-4 bg-primary"
           >
             <slot name="footer" />
           </div>
@@ -79,13 +73,10 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
 
   &__header {
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid $border-color;
   }
 
   &__title {
     font-size: $font-size-lg;
-    font-weight: $font-weight-semibold;
-    color: $headings-color;
 
     @media (max-width: 576px) {
       font-size: $font-size;
@@ -102,8 +93,6 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
   }
 
   &__footer {
-    padding: 1rem 1.5rem;
-    background-color: $primary;
     gap: 0.75rem;
   }
 }
