@@ -59,7 +59,7 @@ defineEmits<{
           <div
             v-for="column in columns"
             :key="String(column.key)"
-            class="v-grid-table__cell d-flex align-items-center"
+            class="v-grid-table__cell d-flex align-items-center animate__animated animate__fadeIn"
             :class="column.styles"
           >
             <slot :name="`cell-${String(column.key)}`" :row="row">
@@ -76,6 +76,7 @@ defineEmits<{
 .v-grid-table {
   min-height: 0;
   min-width: 0;
+  --animate-duration: 1s;
 
   &__body {
     min-height: 0;

@@ -18,17 +18,22 @@ const selectedOrder = computed(
 
 <template>
   <div class="orders-page d-flex gap-3 h-100">
-    <div :class="isGroupsRoute ? 'orders-page__orders' : 'orders-page__orders--full'">
+    <div class="orders-page__orders" :class="{ 'orders-page__orders--collapsed': isGroupsRoute }">
       <OrdersFeature />
     </div>
 
     <router-view v-if="isGroupsRoute" v-slot="{ Component }">
-      <component
-        :is="Component"
-        :order="selectedOrder"
-        :has-error="ordersStore.hasError"
-        class="orders-page__groups flex-grow-1 p-4 border"
-      />
+      <Transition
+        enter-active-class="animate__animated animate__fadeIn"
+        leave-active-class="animate__animated animate__fadeOut"
+      >
+        <component
+          :is="Component"
+          :order="selectedOrder"
+          :has-error="ordersStore.hasError"
+          class="orders-page__groups flex-grow-1 p-4 border"
+        />
+      </Transition>
     </router-view>
   </div>
 </template>
@@ -38,15 +43,15 @@ const selectedOrder = computed(
   min-height: 0;
 
   &__orders {
-    width: 35%;
-    min-height: 0;
-    flex-shrink: 0;
-  }
-
-  &__orders--full {
-    flex-grow: 1;
+    width: 100%;
     min-width: 0;
     min-height: 0;
+    flex-shrink: 0;
+    transition: width 0.3s ease;
+
+    &--collapsed {
+      width: 35%;
+    }
   }
 
   &__groups {

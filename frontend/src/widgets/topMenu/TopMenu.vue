@@ -23,7 +23,10 @@ const isSearchOpen = ref(false);
         type="search"
         :placeholder="t('search')"
         class="top-menu__search"
-        :class="{ 'top-menu__search--open': isSearchOpen, 'd-none d-lg-block': !isSearchOpen }"
+        :class="{
+          'top-menu__search--open animate__animated animate__fadeIn': isSearchOpen,
+          'd-none d-lg-block': !isSearchOpen,
+        }"
         :autofocus="isSearchOpen"
       />
 

@@ -26,7 +26,15 @@ const navItems = computed<NavItem[]>(() =>
       <SideBar :nav-items="navItems" />
       <main class="main-content flex-grow-1 d-flex flex-column">
         <div class="container__content d-flex flex-grow-1 flex-column">
-          <router-view />
+          <router-view v-slot="{ Component }">
+            <Transition
+              mode="out-in"
+              enter-active-class="animate__animated animate__fadeIn"
+              leave-active-class="animate__animated animate__fadeOut"
+            >
+              <component :is="Component" />
+            </Transition>
+          </router-view>
         </div>
       </main>
     </div>
