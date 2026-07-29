@@ -2,11 +2,12 @@
 import GroupsFeature from "@/features/groups/GroupsFeature.vue";
 import type { Order } from "@/shared/types";
 
-const { order } = defineProps<{
-  order: Order;
+const { order, hasError = false } = defineProps<{
+  order?: Order;
+  hasError?: boolean;
 }>();
 </script>
 
 <template>
-  <GroupsFeature :order="order" />
+  <GroupsFeature :order="order" :has-error="hasError" />
 </template>

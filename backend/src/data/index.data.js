@@ -223,7 +223,7 @@ const productSeeds = [
 export const products = productSeeds.map((seed, index) => ({
   id: index + 1,
   serialNumber: 1234 + index,
-  isNew: index % 3 !== 0,
+  condition: index % 3 !== 0 ? "new" : "used",
   photo: "https://placehold.co/80x80",
   title: seed.title,
   type: seed.type,

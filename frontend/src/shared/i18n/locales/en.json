@@ -26,5 +26,6 @@
   "errorMessageProductTypes": "Failed to load product types",
   "orderDeleted": "Order deleted successfully",
   "type": "Type",
-  "addNewProduct": "Add new product"
+  "addNewProduct": "Add new product",
+  "selectOrder": "Select an order"
 }

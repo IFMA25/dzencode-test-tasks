@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import { RouteNames } from "@/app/router/variables/routeNames";
+
 const LOGO_NAME = "Inventory";
 </script>
 
 <template>
-  <RouterLink to="/" class="v-logo d-inline-flex align-items-center gap-2 text-decoration-none">
+  <RouterLink
+    :to="{ name: RouteNames.orders }"
+    class="v-logo d-inline-flex align-items-center gap-2 text-decoration-none"
+  >
     <img src="@/assets/logo.svg" alt="logo" class="v-logo__icon" />
     <span class="v-logo__text d-none d-sm-inline text-primary fw-bold">
       {{ LOGO_NAME.toUpperCase() }}

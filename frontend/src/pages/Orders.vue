@@ -18,15 +18,15 @@ const selectedOrder = computed(
 
 <template>
   <div class="orders-page d-flex gap-3 h-100">
-    <div :class="isGroupsRoute ? 'orders-page__orders' : 'flex-grow-1'">
+    <div :class="isGroupsRoute ? 'orders-page__orders' : 'orders-page__orders--full'">
       <OrdersFeature />
     </div>
 
     <router-view v-if="isGroupsRoute" v-slot="{ Component }">
       <component
         :is="Component"
-        v-if="selectedOrder"
         :order="selectedOrder"
+        :has-error="ordersStore.hasError"
         class="orders-page__groups flex-grow-1 p-4 border"
       />
     </router-view>
@@ -43,9 +43,16 @@ const selectedOrder = computed(
     flex-shrink: 0;
   }
 
+  &__orders--full {
+    flex-grow: 1;
+    min-width: 0;
+    min-height: 0;
+  }
+
   &__groups {
     min-width: 0;
     min-height: 0;
+    height: calc(100% - #{$orders-header-height});
     margin-top: $orders-header-height;
     background-color: $surface-bg;
     border-radius: 0.25rem;

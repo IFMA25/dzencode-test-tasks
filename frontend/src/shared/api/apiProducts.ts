@@ -2,8 +2,11 @@ import { Product } from "../types";
 
 import { apiClient } from "@/shared/api/apiClient";
 
-export const getProductsRequest = async (type?: string): Promise<Product[]> => {
-  const { data } = await apiClient.get("/products", { params: { type } });
+export const getProductsRequest = async (params?: {
+  type?: string;
+  order?: number;
+}): Promise<Product[]> => {
+  const { data } = await apiClient.get("/products", { params });
 
   return data;
 };

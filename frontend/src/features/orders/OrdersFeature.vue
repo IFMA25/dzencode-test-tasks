@@ -10,39 +10,40 @@ import { getOrderTotalPrice } from "./utils";
 
 import { RouteNames } from "@/app/router/variables/routeNames";
 import type { Order } from "@/shared/types";
-import VButton from "@/shared/ui/VButton.vue";
-import VGridTable from "@/shared/ui/VGridTable.vue";
-import VModal from "@/shared/ui/VModal.vue";
+import VEmptyState from "@/shared/ui/VEmptyState.vue";
 import VPageTitle from "@/shared/ui/VPageTitle.vue";
+import VButton from "@/shared/ui/base/VButton.vue";
+import VGridTable from "@/shared/ui/base/VGridTable.vue";
+import VModal from "@/shared/ui/base/VModal.vue";
 import { formatCurrencyValue, getCurrencySymbol } from "@/shared/utils/format";
 import { formatDateLong, formatDateShort, toDate } from "@/shared/utils/formatDate";
 import { useOrdersStore } from "@/stores/useOrdersStore";
 
 const columns: OrderColumn[] = [
-  { key: "title", width: "minmax(0, 50%)" },
+  { key: "title", width: "minmax(12rem, 50%)" },
   {
     key: "count",
-    width: "minmax(0, 15%)",
-    groupsWidth: "minmax(0, 50%)",
-    styles: "justify-content-center",
+    width: "minmax(8rem, 15%)",
+    groupsWidth: "minmax(8rem, 50%)",
+    styles: "justify-content-center text-nowrap",
     isGroupsColumn: true,
   },
   {
     key: "date",
-    width: "minmax(0, 15%)",
-    groupsWidth: "minmax(0, 40%)",
-    styles: "flex-column justify-content-center",
+    width: "minmax(7rem, 15%)",
+    groupsWidth: "minmax(7rem, 40%)",
+    styles: "flex-column justify-content-center text-nowrap",
     isGroupsColumn: true,
   },
   {
     key: "totalPrice",
-    width: "minmax(0, 15%)",
-    styles: "flex-column justify-content-center",
+    width: "minmax(6rem, 15%)",
+    styles: "flex-column justify-content-center text-nowrap",
   },
   {
     key: "action",
-    width: "minmax(0, 5%)",
-    groupsWidth: "minmax(0, 10%)",
+    width: "minmax(3rem, 5%)",
+    groupsWidth: "minmax(3rem, 10%)",
     styles: "justify-content-center p-0 align-self-stretch",
     isGroupsColumn: true,
   },
@@ -114,7 +115,6 @@ onMounted(() => {
       :rows="ordersStore.ordersData"
       :columns="renderColumns"
       :loading="ordersStore.loading"
-      :has-error="ordersStore.hasError"
       variant="card"
       class="orders__table orders-table__table flex-grow-1"
     >
@@ -171,7 +171,10 @@ onMounted(() => {
       </template>
 
       <template v-if="ordersStore.hasError || !ordersStore.ordersData.length" #message>
-        {{ ordersStore.hasError ? t("errorMessageOrders") : t("emptyOrdersTable") }}
+        <VEmptyState
+          :text="ordersStore.hasError ? t('errorMessageOrders') : t('emptyOrdersTable')"
+          :variant="ordersStore.hasError ? 'danger' : 'primary'"
+        />
       </template>
     </VGridTable>
   </div>

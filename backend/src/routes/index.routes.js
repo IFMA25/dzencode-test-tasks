@@ -14,13 +14,14 @@ router.get("/orders", (req, res) => {
 });
 
 router.get("/products", (req, res) => {
-  const { type } = req.query;
+  const { type, order } = req.query;
 
   const result = products
     .filter((product) => !type || product.type === type)
+    .filter((product) => !order || product.order === Number(order))
     .map((product) => ({
       ...product,
-      orderTitle: orders.find((order) => order.id === product.order)?.title ?? "",
+      orderTitle: orders.find((o) => o.id === product.order)?.title ?? "",
     }));
 
   res.json(result);

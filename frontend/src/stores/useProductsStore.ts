@@ -22,7 +22,7 @@ export const useProductsStore = defineStore("products", () => {
     try {
       loading.value = true;
       hasError.value = false;
-      productsData.value = await getProductsRequest(selectedType.value || undefined);
+      productsData.value = await getProductsRequest({ type: selectedType.value || undefined });
     } catch (e) {
       hasError.value = true;
       console.error(e);

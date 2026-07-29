@@ -1,10 +1,14 @@
+<script setup lang="ts">
+import { RouteNames } from "@/app/router/variables/routeNames";
+</script>
+
 <template>
   <div class="not-found d-flex flex-column align-items-center justify-content-center text-center">
     <h1 class="not-found__code">404</h1>
     <p class="not-found__text">
       {{ $t("notFound") }}
     </p>
-    <RouterLink to="/" class="not-found__link">
+    <RouterLink :to="{ name: RouteNames.orders }" class="not-found__link">
       {{ $t("returnBack") }}
     </RouterLink>
   </div>
