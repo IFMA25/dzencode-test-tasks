@@ -1,4 +1,5 @@
 import { watchIgnorable } from "@vueuse/core";
+import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
@@ -7,6 +8,7 @@ import { toast } from "vue-sonner";
 import { getProductsRequest, getProductTypesRequest } from "@/shared/api/apiProducts";
 import { STORAGE_KEYS } from "@/shared/constants";
 import { Product } from "@/shared/types";
+import { createAbortController } from "@/shared/utils/createAbortController";
 import { getStorageItem, removeStorageItem, setStorageItem } from "@/shared/utils/webStorage";
 
 export const useProductsStore = defineStore("products", () => {
@@ -17,13 +19,21 @@ export const useProductsStore = defineStore("products", () => {
   const selectedType = ref<string>("");
 
   const { t } = useI18n();
+  const { getSignal } = createAbortController();
 
-  const loadProducts = async () => {
+  const loadProducts = async (search?: string) => {
     try {
       loading.value = true;
       hasError.value = false;
-      productsData.value = await getProductsRequest({ type: selectedType.value || undefined });
+      productsData.value = await getProductsRequest(
+        {
+          type: selectedType.value || undefined,
+          search: search || undefined,
+        },
+        getSignal(),
+      );
     } catch (e) {
+      if (axios.isCancel(e)) return;
       hasError.value = true;
       console.error(e);
     } finally {

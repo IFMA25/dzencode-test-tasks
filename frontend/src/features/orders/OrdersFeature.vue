@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 import { toast } from "vue-sonner";
@@ -9,6 +9,7 @@ import type { OrderColumn } from "./types";
 import { getOrderTotalPrice } from "./utils";
 
 import { RouteNames } from "@/app/router/variables/routeNames";
+import { EMPTY_STATE_MESSAGES } from "@/shared/constants";
 import type { Order } from "@/shared/types";
 import VEmptyState from "@/shared/ui/VEmptyState.vue";
 import VPageTitle from "@/shared/ui/VPageTitle.vue";
@@ -17,6 +18,7 @@ import VGridTable from "@/shared/ui/base/VGridTable.vue";
 import VModal from "@/shared/ui/base/VModal.vue";
 import { formatCurrencyValue, getCurrencySymbol } from "@/shared/utils/format";
 import { formatDateLong, formatDateShort, toDate } from "@/shared/utils/formatDate";
+import { getEmptyStateKey } from "@/shared/utils/getEmptyStateKey";
 import { useOrdersStore } from "@/stores/useOrdersStore";
 
 const columns: OrderColumn[] = [
@@ -64,6 +66,8 @@ const ordersCount = computed(() => {
 const isGroupsRoute = computed(() => route.name === RouteNames.groups);
 const openOrderId = computed(() => (route.params.id ? Number(route.params.id) : null));
 
+const emptyStateKey = computed(() => getEmptyStateKey(ordersStore.hasError, !!route.query.search));
+
 const renderColumns = computed(() =>
   isGroupsRoute.value
     ? columns
@@ -73,7 +77,7 @@ const renderColumns = computed(() =>
 );
 
 const openGroup = (order: Order) => {
-  router.push({ name: RouteNames.groups, params: { id: order.id } });
+  router.push({ name: RouteNames.groups, params: { id: order.id }, query: route.query });
 };
 
 const openDeleteModal = (order: Order) => {
@@ -90,16 +94,20 @@ const confirmDeleteOrder = async () => {
   toast.success(t("orderDeleted"));
 };
 
-onMounted(() => {
-  ordersStore.loadOrders();
-});
+watch(
+  () => route.query.search,
+  (search) => {
+    ordersStore.loadOrders(String(search ?? ""));
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <OrderDeleteModal
     v-model:open="showDeleteModal"
     :order="selectedOrder"
-    :loading="ordersStore.loading"
+    :loading="ordersStore.deleteLoading"
     @confirm="confirmDeleteOrder"
   />
 
@@ -172,8 +180,8 @@ onMounted(() => {
 
       <template v-if="ordersStore.hasError || !ordersStore.ordersData.length" #message>
         <VEmptyState
-          :text="ordersStore.hasError ? t('errorMessageOrders') : t('emptyOrdersTable')"
-          :variant="ordersStore.hasError ? 'danger' : 'primary'"
+          :text="t(EMPTY_STATE_MESSAGES[emptyStateKey].textKey, { name: t('orders') })"
+          :variant="EMPTY_STATE_MESSAGES[emptyStateKey].variant"
         />
       </template>
     </VGridTable>

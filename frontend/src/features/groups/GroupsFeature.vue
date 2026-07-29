@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 import { RouteNames } from "@/app/router/variables/routeNames";
 import { getProductsRequest } from "@/shared/api/apiProducts";
-import { PRODUCT_CONDITIONS } from "@/shared/constants";
+import { EMPTY_STATE_MESSAGES, PRODUCT_CONDITIONS } from "@/shared/constants";
 import type { Order, Product } from "@/shared/types";
 import VEmptyState from "@/shared/ui/VEmptyState.vue";
 import VProductTitleCell from "@/shared/ui/VProductTitleCell.vue";
 import VButton from "@/shared/ui/base/VButton.vue";
 import VGridTable, { type GridTableColumn } from "@/shared/ui/base/VGridTable.vue";
+import { getEmptyStateKey } from "@/shared/utils/getEmptyStateKey";
 
 const { order, hasError = false } = defineProps<{
   order?: Order;
@@ -29,6 +30,7 @@ const productsHasError = ref(false);
 
 const { t } = useI18n();
 const router = useRouter();
+const route = useRoute();
 
 const loadProducts = async (orderId: number) => {
   try {
@@ -42,6 +44,8 @@ const loadProducts = async (orderId: number) => {
     loading.value = false;
   }
 };
+
+const emptyStateKey = computed(() => getEmptyStateKey(hasError, !!route.query.search));
 
 watch(
   () => order?.id,
@@ -62,7 +66,7 @@ watch(
         variant="circle"
         icon="x"
         class="groups-feature__close position-absolute end-0 top-0"
-        @click="router.push({ name: RouteNames.orders })"
+        @click="router.push({ name: RouteNames.orders, query: route.query })"
       />
     </div>
 
@@ -94,16 +98,16 @@ watch(
       </template>
       <template v-if="productsHasError || !products.length" #message>
         <VEmptyState
-          :text="productsHasError ? t('errorMessageProducts') : t('emptyProductsTable')"
-          :variant="productsHasError ? 'danger' : 'primary'"
+          :text="t(EMPTY_STATE_MESSAGES[emptyStateKey].textKey, { name: t('products') })"
+          :variant="EMPTY_STATE_MESSAGES[emptyStateKey].variant"
         />
       </template>
     </VGridTable>
 
     <template v-else>
       <VEmptyState
-        :text="hasError ? t('errorMessageOrders') : t('selectOrder')"
-        :variant="hasError ? 'danger' : 'primary'"
+        :text="t(EMPTY_STATE_MESSAGES[emptyStateKey].textKey, { name: t('orders') })"
+        :variant="EMPTY_STATE_MESSAGES[emptyStateKey].variant"
       />
     </template>
   </div>
