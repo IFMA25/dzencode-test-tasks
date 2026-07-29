@@ -12,7 +12,8 @@ defineProps<{
     <RouterLink
       :to="item.to"
       class="nav-item__link d-block text-center text-decoration-none py-2 px-3"
-      active-class="nav-item__link--active"
+      :active-class="item.exact ? '' : 'nav-item__link--active'"
+      :exact-active-class="item.exact ? 'nav-item__link--active' : ''"
     >
       <Transition name="nav-item-content">
         <i v-if="collapsed" class="nav-item__icon bi" :class="`bi-${item.icon}`" />

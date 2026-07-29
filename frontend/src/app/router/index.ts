@@ -4,7 +4,7 @@ import { RouteNames } from "./variables/routeNames";
 
 import i18n from "@/shared/i18n";
 
-const routes: RouteRecordRaw[] = [
+export const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: RouteNames.orders,
@@ -14,16 +14,18 @@ const routes: RouteRecordRaw[] = [
       titleMenu: "orders",
       iconMenu: "receipt",
     },
-  },
-  {
-    path: "/groups",
-    name: RouteNames.groups,
-    component: () => import("@/pages/Groups.vue"),
-    meta: {
-      title: "groups",
-      titleMenu: "groups",
-      iconMenu: "collection",
-    },
+    children: [
+      {
+        path: "groups/:id?",
+        name: RouteNames.groups,
+        component: () => import("@/pages/Groups.vue"),
+        meta: {
+          title: "orders",
+          titleMenu: "groups",
+          iconMenu: "collection",
+        },
+      },
+    ],
   },
   {
     path: "/products",

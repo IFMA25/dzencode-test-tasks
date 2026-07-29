@@ -8,10 +8,12 @@ export interface Price {
   isDefault: boolean;
 }
 
+export type ProductCondition = "new" | "used";
+
 export interface Product {
   id: number;
   serialNumber: number;
-  isNew: boolean;
+  condition: ProductCondition;
   photo: string;
   title: string;
   type: string;

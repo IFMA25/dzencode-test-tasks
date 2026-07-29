@@ -6,7 +6,7 @@ import SidebarHeader from "./components/SidebarHeader.vue";
 import SidebarNavItem from "./components/SidebarNavItem.vue";
 import type { NavItem } from "./types";
 
-import VButton from "@/shared/ui/VButton.vue";
+import VButton from "@/shared/ui/base/VButton.vue";
 
 defineProps<{
   navItems: NavItem[];
@@ -33,7 +33,12 @@ const toggle = () => {
 
     <nav class="sidebar__nav" :class="{ 'sidebar__nav--offset': !isOpen }">
       <ul class="sidebar__list d-flex flex-column gap-2 list-unstyled m-0">
-        <SidebarNavItem v-for="item in navItems" :key="item.to" :item="item" :collapsed="!isOpen" />
+        <SidebarNavItem
+          v-for="item in navItems"
+          :key="item.text"
+          :item="item"
+          :collapsed="!isOpen"
+        />
       </ul>
     </nav>
 

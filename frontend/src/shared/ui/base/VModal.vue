@@ -23,7 +23,10 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
 
 <template>
   <Teleport to="body">
-    <Transition name="modal">
+    <Transition
+      enter-active-class="animate__animated animate__fadeIn"
+      leave-active-class="animate__animated animate__fadeOut"
+    >
       <div
         v-if="open"
         class="modal-overlay position-fixed d-flex align-items-center justify-content-center"
@@ -95,15 +98,5 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
   &__footer {
     gap: 0.75rem;
   }
-}
-
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.modal-enter-from,
-.modal-leave-to {
-  opacity: 0;
 }
 </style>

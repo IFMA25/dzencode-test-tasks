@@ -3,7 +3,7 @@ import VLoader from "./VLoader.vue";
 
 export interface GridTableColumn<T> {
   key: keyof T | string;
-  position?: string;
+  styles?: string;
   width?: string;
 }
 
@@ -12,13 +12,11 @@ const {
   columns = [],
   loading = false,
   variant = "card",
-  hasError = false,
 } = defineProps<{
   rows: T[];
   columns?: GridTableColumn<T>[];
   loading?: boolean;
   variant?: "card" | "list";
-  hasError?: boolean;
 }>();
 
 defineEmits<{
@@ -41,11 +39,7 @@ defineEmits<{
         class="v-grid-table__loader position-absolute top-50 start-50 translate-middle z-1"
       />
 
-      <div
-        v-else-if="$slots.message"
-        class="v-grid-table__message text-center py-5"
-        :class="hasError ? 'text-danger' : 'text-muted'"
-      >
+      <div v-else-if="$slots.message" class="v-grid-table__message d-flex h-100">
         <slot name="message" />
       </div>
 
@@ -65,8 +59,8 @@ defineEmits<{
           <div
             v-for="column in columns"
             :key="String(column.key)"
-            class="v-grid-table__cell align-items-center"
-            :class="column.position"
+            class="v-grid-table__cell d-flex align-items-center animate__animated animate__fadeIn"
+            :class="column.styles"
           >
             <slot :name="`cell-${String(column.key)}`" :row="row">
               {{ String(row[column.key as keyof T] ?? "") }}
@@ -80,7 +74,14 @@ defineEmits<{
 
 <style scoped lang="scss">
 .v-grid-table {
+  min-height: 0;
+  min-width: 0;
+  --animate-duration: 1s;
+
   &__body {
+    min-height: 0;
+    min-width: 0;
+    overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: $scrollbar-color transparent;
 
@@ -98,10 +99,8 @@ defineEmits<{
     }
   }
 
-  &__grid {
-    @media (max-width: 992px) {
-      min-width: 55rem;
-    }
+  &__cell {
+    padding: 0.5rem 0.25rem;
   }
 
   &__row {
@@ -118,7 +117,6 @@ defineEmits<{
     .v-grid-table__row {
       background-color: $surface-bg;
       border-radius: 0.25rem;
-      padding: 0.75rem 1.25rem;
       transition: all 0.2s ease;
 
       &:hover {
@@ -131,16 +129,20 @@ defineEmits<{
     row-gap: 0;
 
     .v-grid-table__row {
-      padding: 1rem 0.75rem;
       border-bottom: 1px solid $border-color;
+      transition: all 0.2s ease;
 
       &:last-child {
         border-bottom: none;
       }
 
       &:hover {
-        background-color: $body-bg;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       }
+    }
+
+    .v-grid-table__cell {
+      padding: 1rem 0.75rem;
     }
   }
 }

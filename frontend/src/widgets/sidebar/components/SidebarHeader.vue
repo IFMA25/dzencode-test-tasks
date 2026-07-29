@@ -2,7 +2,7 @@
 import { useRouter } from "vue-router";
 
 import { RouteNames } from "@/app/router/variables/routeNames";
-import VButton from "@/shared/ui/VButton.vue";
+import VButton from "@/shared/ui/base/VButton.vue";
 
 const router = useRouter();
 </script>

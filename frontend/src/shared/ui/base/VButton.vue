@@ -83,11 +83,9 @@ const variantClass = computed(() => {
 
   &--text {
     padding: 0.5rem 1.25rem;
-    border: 1px solid transparent;
 
     &:hover {
-      border-color: $border-color;
-      box-shadow: var(--bs-box-shadow-sm);
+      color: $text-muted !important;
     }
   }
 

@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import VPageTitle from "@/shared/ui/VPageTitle.vue";
+import GroupsFeature from "@/features/groups/GroupsFeature.vue";
+import type { Order } from "@/shared/types";
+
+const { order, hasError = false } = defineProps<{
+  order?: Order;
+  hasError?: boolean;
+}>();
 </script>
 
 <template>
-  <div class="groups-page">
-    <VPageTitle />
-  </div>
+  <GroupsFeature :order="order" :has-error="hasError" />
 </template>

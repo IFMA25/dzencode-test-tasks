@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Order } from "@/shared/types";
-import VButton from "@/shared/ui/VButton.vue";
-import VModal from "@/shared/ui/VModal.vue";
+import VButton from "@/shared/ui/base/VButton.vue";
+import VModal from "@/shared/ui/base/VModal.vue";
 
 const { order, loading = false } = defineProps<{
   order: Order | null;

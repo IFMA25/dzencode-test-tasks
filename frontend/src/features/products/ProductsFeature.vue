@@ -2,30 +2,33 @@
 import { computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 
+import { PRODUCT_CONDITIONS } from "@/shared/constants";
 import type { Product } from "@/shared/types";
-import VGridTable, { type GridTableColumn } from "@/shared/ui/VGridTable.vue";
+import VEmptyState from "@/shared/ui/VEmptyState.vue";
 import VPageTitle from "@/shared/ui/VPageTitle.vue";
-import VSelect from "@/shared/ui/VSelect.vue";
+import VProductTitleCell from "@/shared/ui/VProductTitleCell.vue";
+import VGridTable, { type GridTableColumn } from "@/shared/ui/base/VGridTable.vue";
+import VSelect from "@/shared/ui/base/VSelect.vue";
 import { formatCurrencyValue, getCurrencySymbol } from "@/shared/utils/format";
 import { formatDateLong, formatDateShort, toDate } from "@/shared/utils/formatDate";
 import { useProductsStore } from "@/stores/useProductsStore";
 
 const columns: GridTableColumn<Product>[] = [
-  { key: "conditionDot", width: "minmax(0, 3%)", position: "d-flex justify-content-center" },
-  { key: "title", width: "minmax(0, 30%)", position: "d-flex align-items-center gap-3" },
-  { key: "type", width: "minmax(0, 10%)", position: "d-flex justify-content-center" },
-  { key: "condition", width: "minmax(0, 7%)", position: "d-flex justify-content-center" },
+  { key: "conditionDot", width: "minmax(2rem, 3%)", styles: "justify-content-center" },
+  { key: "title", width: "minmax(14rem, 30%)", styles: "gap-3" },
+  { key: "type", width: "minmax(6rem, 10%)", styles: "justify-content-center text-nowrap" },
+  { key: "condition", width: "minmax(5rem, 7%)", styles: "justify-content-center text-nowrap" },
   {
     key: "guarantee",
-    width: "minmax(0, 20%)",
-    position: "d-flex flex-column justify-content-center",
+    width: "minmax(16rem, 20%)",
+    styles: "flex-column justify-content-center text-nowrap",
   },
   {
     key: "price",
-    width: "minmax(0, 10%)",
-    position: "d-flex flex-column justify-content-center",
+    width: "minmax(6rem, 10%)",
+    styles: "flex-column justify-content-center text-nowrap",
   },
-  { key: "orderTitle", width: "minmax(0, 20%)", position: "d-flex" },
+  { key: "orderTitle", width: "minmax(10rem, 20%)" },
 ];
 
 const productsStore = useProductsStore();
@@ -53,7 +56,6 @@ onMounted(() => {
       :rows="productsStore.productsData"
       :columns="columns"
       :loading="productsStore.loading"
-      :has-error="productsStore.hasError"
       variant="card"
       class="products__table products-table__table"
     >
@@ -73,25 +75,21 @@ onMounted(() => {
       <template #cell-conditionDot="{ row }">
         <span
           class="products-table__condition-dot rounded-circle"
-          :class="{ 'products-table__condition-dot--new bg-success': row.isNew }"
+          :class="PRODUCT_CONDITIONS[row.condition].dotClass"
         />
       </template>
       <template #cell-title="{ row }">
-        <div class="products-table__photo flex-shrink-0">
-          <img
-            src="/img-monitor.png"
-            alt=""
-            class="products-table__photo-img w-100 h-100 object-fit-contain"
-          />
-        </div>
-        <span class="products-table__title text-decoration-underline">{{ row.title }}</span>
+        <VProductTitleCell :title="row.title" />
       </template>
       <template #cell-type="{ row }">
         <span class="products-table__type">{{ row.type }}</span>
       </template>
       <template #cell-condition="{ row }">
-        <span class="products-table__condition">
-          {{ row.isNew ? t("productNew") : t("productUsed") }}
+        <span
+          class="products-table__condition"
+          :class="PRODUCT_CONDITIONS[row.condition].textClass"
+        >
+          {{ t(PRODUCT_CONDITIONS[row.condition].labelKey) }}
         </span>
       </template>
       <template #cell-guarantee="{ row }">
@@ -120,7 +118,10 @@ onMounted(() => {
       </template>
 
       <template v-if="productsStore.hasError || !productsStore.productsData.length" #message>
-        {{ productsStore.hasError ? t("errorMessageProducts") : t("emptyProductsTable") }}
+        <VEmptyState
+          :text="productsStore.hasError ? t('errorMessageProducts') : t('emptyProductsTable')"
+          :variant="productsStore.hasError ? 'danger' : 'primary'"
+        />
       </template>
     </VGridTable>
   </div>
@@ -153,15 +154,6 @@ onMounted(() => {
       grid-column: 1 / -1;
       grid-row: 2;
     }
-  }
-
-  &__title {
-    text-underline-offset: 0.25rem;
-  }
-
-  &__photo {
-    width: 2.5rem;
-    height: 2.5rem;
   }
 
   &__type {
@@ -210,7 +202,6 @@ onMounted(() => {
   }
 
   &__order-title,
-  &__title,
   &__price--default {
     @media (max-width: 1200px) {
       font-size: $font-size-md;

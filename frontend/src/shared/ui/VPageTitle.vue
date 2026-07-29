@@ -22,7 +22,7 @@ defineProps<{
 .v-page-title {
   &__text,
   &__count {
-    font-size: $font-size-lg;
+    font-size: $font-size-xl;
   }
 }
 </style>

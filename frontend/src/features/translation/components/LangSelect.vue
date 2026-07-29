@@ -2,7 +2,7 @@
 import { computed } from "vue";
 
 import { isSupportedLocale, supportedLocales } from "@/shared/i18n/config/locale";
-import VSelect from "@/shared/ui/VSelect.vue";
+import VSelect from "@/shared/ui/base/VSelect.vue";
 import { useLanguageStore } from "@/stores/useLanguageStore";
 
 const localeLabels: Record<string, string> = {

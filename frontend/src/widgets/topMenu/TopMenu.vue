@@ -5,9 +5,9 @@ import { useI18n } from "vue-i18n";
 import ActiveSessionsFeature from "@/features/activeSessions/ActiveSessionsFeature.vue";
 import CurrentDateTimeFeature from "@/features/currentDateTime/components/CurrentDateTimeFeature.vue";
 import LangSelect from "@/features/translation/components/LangSelect.vue";
-import VButton from "@/shared/ui/VButton.vue";
-import VInput from "@/shared/ui/VInput.vue";
-import VLogo from "@/shared/ui/VLogo.vue";
+import VButton from "@/shared/ui/base/VButton.vue";
+import VInput from "@/shared/ui/base/VInput.vue";
+import VLogo from "@/shared/ui/base/VLogo.vue";
 
 const { t } = useI18n();
 
@@ -23,7 +23,10 @@ const isSearchOpen = ref(false);
         type="search"
         :placeholder="t('search')"
         class="top-menu__search"
-        :class="{ 'top-menu__search--open': isSearchOpen, 'd-none d-lg-block': !isSearchOpen }"
+        :class="{
+          'top-menu__search--open animate__animated animate__fadeIn': isSearchOpen,
+          'd-none d-lg-block': !isSearchOpen,
+        }"
         :autofocus="isSearchOpen"
       />
 
