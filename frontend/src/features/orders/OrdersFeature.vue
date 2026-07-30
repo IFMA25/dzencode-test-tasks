@@ -116,7 +116,7 @@ watch(
   <div class="d-flex flex-column h-100">
     <div class="orders orders-table__header d-flex align-items-center gap-2 flex-shrink-0">
       <VButton variant="add" icon="plus-lg" @click="showAddModal = true" />
-      <VPageTitle :count="ordersCount" />
+      <VPageTitle :title="$t($route.meta.title ?? '')" :count="ordersCount" />
     </div>
 
     <VGridTable

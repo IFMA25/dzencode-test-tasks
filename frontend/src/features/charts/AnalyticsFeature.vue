@@ -17,7 +17,7 @@ onMounted(() => {
 
 <template>
   <div class="analytics d-flex flex-column gap-3">
-    <VPageTitle />
+    <VPageTitle :title="$t($route.meta.title ?? '')" />
 
     <div class="analytics__charts d-grid gap-3">
       <LineChartForOrders

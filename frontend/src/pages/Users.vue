@@ -4,6 +4,6 @@ import VPageTitle from "@/shared/ui/VPageTitle.vue";
 
 <template>
   <div class="users-page">
-    <VPageTitle />
+    <VPageTitle :title="$t($route.meta.title ?? '')" />
   </div>
 </template>

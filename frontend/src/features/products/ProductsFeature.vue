@@ -64,7 +64,11 @@ watch(
 
 <template>
   <div class="products position-relative h-100 d-grid gap-3">
-    <VPageTitle :count="productsCount" class="products__title align-self-center" />
+    <VPageTitle
+      :title="$t($route.meta.title ?? '')"
+      :count="productsCount"
+      class="products__title align-self-center"
+    />
 
     <VGridTable
       :rows="productsStore.productsData"

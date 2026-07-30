@@ -18,11 +18,6 @@ const {
   loading?: boolean;
   variant?: "card" | "list";
 }>();
-
-defineEmits<{
-  "load-more": [currentLimit: number];
-  select: [row: T];
-}>();
 </script>
 
 <template>
@@ -54,7 +49,6 @@ defineEmits<{
           :key="row.id"
           class="v-grid-table__row d-grid"
           :class="{ border: variant === 'card' }"
-          @click="$emit('select', row)"
         >
           <div
             v-for="column in columns"
@@ -107,8 +101,6 @@ defineEmits<{
     grid-template-columns: subgrid;
     grid-column: 1 / -1;
     column-gap: 3px;
-    cursor: pointer;
-    transition: background-color 0.15s ease;
   }
 
   &__grid--card {

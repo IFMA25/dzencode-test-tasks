@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useRoute } from "vue-router";
-
-defineProps<{
+const { title, count } = defineProps<{
+  title: string;
   count?: number;
 }>();
 </script>
@@ -9,7 +8,7 @@ defineProps<{
 <template>
   <div class="v-page-title d-flex align-items-center gap-2">
     <h1 class="v-page-title__text m-0 fw-semibold text-body">
-      {{ $t(useRoute().meta.title ?? "") }}
+      {{ title }}
     </h1>
     <template v-if="count !== undefined">
       <span>/</span>
