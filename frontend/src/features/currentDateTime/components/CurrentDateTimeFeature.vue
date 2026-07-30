@@ -49,7 +49,7 @@ const time = computed(() =>
     font-size: $font-size-md;
   }
 
-  @media (max-width: 575.98px) {
+  @media (max-width: $breakpoint-sm) {
     &__weekday {
       font-size: $font-size-sm;
     }

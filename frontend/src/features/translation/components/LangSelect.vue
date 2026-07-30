@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { isSupportedLocale, supportedLocales } from "@/shared/i18n/config/locale";
+import { isSupportedLocale, supportedLocales, type Locale } from "@/shared/i18n/config/locale";
 import VSelect from "@/shared/ui/base/VSelect.vue";
 import { useLanguageStore } from "@/stores/useLanguageStore";
 
-const localeLabels: Record<string, string> = {
+const localeLabels: Record<Locale, string> = {
   en: "EN",
   ru: "RU",
 };
@@ -13,7 +13,7 @@ const localeLabels: Record<string, string> = {
 const language = useLanguageStore();
 
 const localeOptions = computed(() =>
-  supportedLocales.map((locale: string) => ({
+  supportedLocales.map((locale) => ({
     key: locale,
     label: localeLabels[locale],
   })),

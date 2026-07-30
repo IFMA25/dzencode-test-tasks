@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 
-import { RouteNames } from "@/app/router/variables/routeNames";
+import { ROUTE_NAMES } from "@/app/router/variables/routeNames";
 import VButton from "@/shared/ui/base/VButton.vue";
 
 const router = useRouter();
@@ -11,16 +11,15 @@ const router = useRouter();
   <div class="sidebar-header d-flex justify-content-center py-4">
     <div class="sidebar-header__avatar position-relative">
       <img
-        src="/avatar-photo.png"
+        src="@/assets/avatar-photo.webp"
         alt="avatar-photo"
         class="sidebar-header__avatar-img rounded-circle w-100 h-100 border object-fit-cover"
       />
-
       <VButton
         variant="circle"
         icon="gear"
         class="sidebar-header__settings position-absolute"
-        @click="router.push({ name: RouteNames.profileSettings })"
+        @click="router.push({ name: ROUTE_NAMES.profileSettings })"
       />
     </div>
   </div>

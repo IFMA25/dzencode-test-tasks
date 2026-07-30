@@ -25,7 +25,6 @@ const {
     <div v-if="$slots.toolbar" class="v-grid-table__toolbar flex-shrink-0">
       <slot name="toolbar" />
     </div>
-
     <div class="v-grid-table__body flex-grow-1 overflow-y-auto">
       <VLoader
         v-if="loading"
@@ -33,11 +32,9 @@ const {
         color="var(--bs-primary)"
         class="v-grid-table__loader position-absolute top-50 start-50 translate-middle z-1"
       />
-
       <div v-else-if="$slots.message" class="v-grid-table__message d-flex h-100">
         <slot name="message" />
       </div>
-
       <div
         v-else
         class="v-grid-table__grid d-grid"

@@ -28,9 +28,6 @@ const {
   activeClass?: string;
 }>();
 
-const isDisabled = computed(() => disabled || loading);
-const isRouterLink = computed(() => !!to);
-
 const variantBase: Record<string, string> = {
   primary: "btn rounded-pill fw-semibold v-button--primary",
   text: "btn btn-link text-decoration-none rounded-pill v-button--text",
@@ -39,9 +36,11 @@ const variantBase: Record<string, string> = {
   add: "btn rounded-circle bg-primary p-0 v-button--add",
   nav: "d-block w-100 border-0 bg-transparent text-body text-center text-uppercase text-decoration-none v-button--nav",
 };
-
 const bgColorVariants = ["primary"];
 const textColorVariants = ["text", "icon"];
+
+const isDisabled = computed(() => disabled || loading);
+const isRouterLink = computed(() => !!to);
 
 const variantClass = computed(() => {
   const base = variantBase[variant] ?? "btn";
@@ -66,7 +65,6 @@ const variantClass = computed(() => {
   >
     <VLoader v-if="loading" size="sm" :color="textColor ? `var(--bs-${textColor})` : undefined" />
     <i v-else-if="icon" class="bi" :class="[`bi-${icon}`, textColor ? `text-${textColor}` : '']" />
-
     <span v-if="text" :class="textColor ? `text-${textColor}` : ''">
       {{ text }}
     </span>

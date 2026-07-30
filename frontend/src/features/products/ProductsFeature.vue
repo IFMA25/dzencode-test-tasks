@@ -72,7 +72,7 @@ watch(
       variant="card"
       class="products__table products-table__table"
     >
-      <template v-if="productsStore.productTypes.length" #toolbar>
+      <template v-if="productsStore.typesLoading || productsStore.productTypes.length" #toolbar>
         <VSelect
           id="product-type"
           v-model="productsStore.selectedType"
@@ -82,9 +82,9 @@ watch(
           track-by="key"
           :allow-empty="false"
           :close-on-select="true"
+          :loading="productsStore.typesLoading"
         />
       </template>
-
       <template #cell-conditionDot="{ row }">
         <span
           class="products-table__condition-dot rounded-circle"
@@ -129,7 +129,6 @@ watch(
       <template #cell-orderTitle="{ row }">
         <span class="products-table__order-title">{{ row.orderTitle }}</span>
       </template>
-
       <template v-if="productsStore.hasError || !productsStore.productsData.length" #message>
         <VEmptyState
           :name="t('products')"
@@ -150,6 +149,11 @@ watch(
     grid-column: 1;
     grid-row: 1;
   }
+
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+  }
 }
 
 .products-table {
@@ -161,12 +165,22 @@ watch(
       grid-row: 1;
       align-self: center;
       margin-bottom: 0;
+
+      @media (max-width: $breakpoint-lg) {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: start;
+      }
     }
 
     :deep(.v-grid-table__body) {
       position: relative;
       grid-column: 1 / -1;
       grid-row: 2;
+
+      @media (max-width: $breakpoint-lg) {
+        grid-row: 3;
+      }
     }
   }
 
@@ -197,7 +211,7 @@ watch(
     color: $text-muted;
     font-size: $font-size-md;
 
-    @media (max-width: 1200px) {
+    @media (max-width: $breakpoint-xl) {
       font-size: $font-size-sm;
     }
 
@@ -217,7 +231,7 @@ watch(
 
   &__order-title,
   &__price--default {
-    @media (max-width: 1200px) {
+    @media (max-width: $breakpoint-xl) {
       font-size: $font-size-md;
     }
   }

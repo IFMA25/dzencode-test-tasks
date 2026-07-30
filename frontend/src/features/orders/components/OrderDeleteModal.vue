@@ -25,7 +25,6 @@ const emit = defineEmits<{
       </span>
       <span class="w-25 text-center"> {{ order?.products.length }} {{ $t("productCount") }} </span>
     </div>
-
     <template #footer>
       <VButton
         variant="text"

@@ -4,7 +4,7 @@ import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
 import ChartCard from "./ChartCard.vue";
-import { chartColors, chartSeriesColors } from "../variables/chartColors";
+import { CHART_COLORS, CHART_SERIES_COLORS } from "../variables/chartColors";
 
 import type { AnalyticsData } from "@/shared/types";
 import VSkeleton from "@/shared/ui/base/VSkeleton.vue";
@@ -42,15 +42,15 @@ const option = computed<EChartsOption>(() => ({
     type: "category",
     data: data.map((item) => item.order),
     axisTick: { show: false },
-    axisLine: { lineStyle: { color: chartColors.axisLine } },
-    axisLabel: { color: chartColors.axisLabel },
+    axisLine: { lineStyle: { color: CHART_COLORS.axisLine } },
+    axisLabel: { color: CHART_COLORS.axisLabel },
   },
   yAxis: {
     type: "value",
     minInterval: 1,
     axisLine: { show: false },
-    axisLabel: { color: chartColors.axisLabel },
-    splitLine: { lineStyle: { color: chartColors.splitLine } },
+    axisLabel: { color: CHART_COLORS.axisLabel },
+    splitLine: { lineStyle: { color: CHART_COLORS.splitLine } },
   },
   series: [
     {
@@ -58,7 +58,7 @@ const option = computed<EChartsOption>(() => ({
       type: "bar",
       barWidth: "55%",
       itemStyle: {
-        color: chartSeriesColors[1],
+        color: CHART_SERIES_COLORS[1],
         borderRadius: [4, 4, 0, 0],
       },
       data: data.map((item) => item.count),
@@ -87,7 +87,6 @@ const getSkeletonHeight = (index: number) =>
         />
       </div>
     </template>
-
     <VChart class="w-100 flex-grow-1" :option="option" autoresize />
   </ChartCard>
 </template>

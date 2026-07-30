@@ -3,6 +3,7 @@ import { computed } from "vue";
 import Multiselect from "vue-multiselect";
 
 import { Option } from "@/shared/types/index";
+import VSkeleton from "@/shared/ui/base/VSkeleton.vue";
 
 interface Props {
   id: string;
@@ -20,6 +21,7 @@ interface Props {
   trackBy?: string;
   disabled?: boolean;
   size?: "sm" | "md";
+  loading?: boolean;
 }
 
 const {
@@ -38,6 +40,7 @@ const {
   trackBy = "key",
   disabled = false,
   size = "md",
+  loading = false,
 } = defineProps<Props>();
 
 const model = defineModel<string | string[] | null>();
@@ -77,7 +80,12 @@ const closeOnSelectComputed = computed(() => closeOnSelectProp ?? !multiple);
     <label v-if="labelText" :for="id" class="v-select__label text-nowrap">
       {{ labelText }}
     </label>
+    <div v-if="loading" class="v-select__skeleton" :class="`v-select__skeleton--${size}`">
+      <VSkeleton height="1.5em" />
+    </div>
+
     <Multiselect
+      v-else
       :id="id"
       v-model="optionModel"
       v-bind="multiselectProps"
@@ -119,6 +127,22 @@ $select-max-width: 20rem;
     width: fit-content;
     max-width: $select-max-width;
     outline: none;
+  }
+
+  &__skeleton {
+    width: 8rem;
+    border: 1px solid $border-color;
+    border-radius: 0.5rem;
+    background-color: $surface-bg;
+
+    &--sm {
+      padding: 0.375rem 0.625rem;
+      font-size: $font-size-sm;
+    }
+
+    &--md {
+      padding: 0.5rem 0.75rem;
+    }
   }
 
   &__caret {

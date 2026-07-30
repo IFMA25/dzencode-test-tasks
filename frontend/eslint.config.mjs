@@ -177,6 +177,7 @@ export default [
       "vue/attribute-hyphenation": ["error", "always"],
       "vue/v-on-event-hyphenation": ["error", "always"],
       "vue/html-indent": ["error", 2],
+      "vue/singleline-html-element-content-newline": "off",
       "vue/html-closing-bracket-newline": [
         "error",
         {

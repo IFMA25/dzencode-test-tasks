@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouteNames } from "@/app/router/variables/routeNames";
+import { ROUTE_NAMES } from "@/app/router/variables/routeNames";
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import { RouteNames } from "@/app/router/variables/routeNames";
     <p class="not-found__text">
       {{ $t("notFound") }}
     </p>
-    <RouterLink :to="{ name: RouteNames.orders }" class="not-found__link">
+    <RouterLink :to="{ name: ROUTE_NAMES.orders }" class="not-found__link">
       {{ $t("returnBack") }}
     </RouterLink>
   </div>

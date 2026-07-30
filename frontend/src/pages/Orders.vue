@@ -2,14 +2,14 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
-import { RouteNames } from "@/app/router/variables/routeNames";
+import { ROUTE_NAMES } from "@/app/router/variables/routeNames";
 import OrdersFeature from "@/features/orders/OrdersFeature.vue";
 import { useOrdersStore } from "@/stores/useOrdersStore";
 
 const route = useRoute();
 const ordersStore = useOrdersStore();
 
-const isGroupsRoute = computed(() => route.name === RouteNames.groups);
+const isGroupsRoute = computed(() => route.name === ROUTE_NAMES.groups);
 
 const isGroupsPanelVisible = computed(() => isGroupsRoute.value && !ordersStore.hasError);
 

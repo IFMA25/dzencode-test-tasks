@@ -70,7 +70,7 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
   background-color: $surface-bg;
   box-shadow: $surface-shadow;
 
-  @media (max-width: 576px) {
+  @media (max-width: $breakpoint-sm) {
     font-size: $small-font-size;
   }
 
@@ -81,7 +81,7 @@ onBeforeUnmount(() => document.removeEventListener("keydown", handleKeydown));
   &__title {
     font-size: $font-size-lg;
 
-    @media (max-width: 576px) {
+    @media (max-width: $breakpoint-sm) {
       font-size: $font-size;
     }
   }

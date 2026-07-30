@@ -15,6 +15,7 @@ export const useProductsStore = defineStore("products", () => {
   const productsData = ref<Product[]>([]);
   const productTypes = ref<string[]>([]);
   const loading = ref(false);
+  const typesLoading = ref(true);
   const hasError = ref(false);
   const selectedType = ref<string>("");
 
@@ -43,10 +44,13 @@ export const useProductsStore = defineStore("products", () => {
 
   const loadProductTypes = async () => {
     try {
+      typesLoading.value = true;
       productTypes.value = await getProductTypesRequest();
     } catch (e) {
       toast.error(t("errorMessageProductTypes"));
       console.error(e);
+    } finally {
+      typesLoading.value = false;
     }
   };
 
@@ -69,6 +73,7 @@ export const useProductsStore = defineStore("products", () => {
   return {
     productsData,
     productTypes,
+    typesLoading,
     loading,
     hasError,
     selectedType,
