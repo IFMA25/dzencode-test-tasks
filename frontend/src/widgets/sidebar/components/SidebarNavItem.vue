@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { NavItem } from "../types";
 
-defineProps<{
+const { item, collapsed = false } = defineProps<{
   item: NavItem;
   collapsed?: boolean;
 }>();

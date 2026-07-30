@@ -8,7 +8,7 @@ import type { NavItem } from "./types";
 
 import VButton from "@/shared/ui/base/VButton.vue";
 
-defineProps<{
+const { navItems } = defineProps<{
   navItems: NavItem[];
 }>();
 
