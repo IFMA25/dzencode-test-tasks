@@ -43,7 +43,7 @@ export default ({ mode }: any) => {
     },
     build: {
       chunkSizeWarningLimit: 1100,
-      sourcemap: true,
+      sourcemap: false,
       rollupOptions: {
         output: {
           manualChunks: {
