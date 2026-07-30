@@ -11,11 +11,13 @@ const {
   type = "text",
   loading = false,
   autofocus = false,
+  disabled = false,
 } = defineProps<{
   placeholder?: string;
   type?: string;
   loading?: boolean;
   autofocus?: boolean;
+  disabled?: boolean;
 }>();
 
 const inputRef = ref<HTMLInputElement | null>(null);
@@ -42,9 +44,10 @@ watch(
       ref="inputRef"
       v-model="model"
       :type="type"
-      class="v-input form-control rounded-3 bg-body"
+      class="v-input form-control rounded-3"
       :class="{ 'v-input--loading': loading }"
       :placeholder="placeholder"
+      :disabled="disabled"
       v-bind="$attrs"
       @input="emitSearch(model?.trim() ?? '')"
     />
@@ -66,6 +69,7 @@ watch(
 
   .v-input {
     border: 2px solid transparent;
+    background-color: $body-bg;
 
     &--loading {
       padding-right: 2.25rem;
@@ -79,6 +83,16 @@ watch(
     &:focus {
       border: 2px solid $success;
       box-shadow: none;
+    }
+
+    &:disabled {
+      background-color: $border-color;
+      color: $text-muted;
+      cursor: not-allowed;
+
+      &::placeholder {
+        opacity: 0.6;
+      }
     }
   }
 }
