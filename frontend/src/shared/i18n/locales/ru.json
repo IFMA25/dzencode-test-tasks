@@ -30,5 +30,6 @@
   "analytics": "Аналитика",
   "chartOrdersByPeriod": "Количество приходов по годам",
   "chartProductsPerOrder": "Количество продуктов в приходах",
-  "chartOrderNumber": "Приход №{number}"
+  "chartOrderNumber": "Приход №{number}",
+  "chartProductTypes": "Типы продуктов"
 }

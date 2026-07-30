@@ -30,5 +30,6 @@
   "analytics": "Analytics",
   "chartOrdersByPeriod": "Orders count by year",
   "chartProductsPerOrder": "Products count per order",
-  "chartOrderNumber": "Order #{number}"
+  "chartOrderNumber": "Order #{number}",
+  "chartProductTypes": "Product types"
 }

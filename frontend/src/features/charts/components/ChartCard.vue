@@ -26,12 +26,12 @@ const emptyStateKey = computed(() => getEmptyStateKey(hasError, false));
 </script>
 
 <template>
-  <div class="chart-card d-flex flex-column border rounded p-4 overflow-hidden">
+  <div class="chart-card d-flex flex-column border rounded p-4">
     <h2 class="chart-card__title m-0 mb-3 fw-semibold text-body">
       {{ title }}
     </h2>
 
-    <div class="chart-card__body d-flex flex-column flex-grow-1">
+    <div class="chart-card__body d-flex flex-column flex-grow-1 overflow-hidden">
       <slot v-if="loading" name="skeleton" />
 
       <VEmptyState
@@ -56,7 +56,7 @@ const emptyStateKey = computed(() => getEmptyStateKey(hasError, false));
 
   &__body {
     min-width: 0;
-    min-height: 18rem;
+    min-height: 14rem;
   }
 }
 </style>
