@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useI18n } from "vue-i18n";
 
 import ActiveSessionsFeature from "@/features/activeSessions/ActiveSessionsFeature.vue";
 import CurrentDateTimeFeature from "@/features/currentDateTime/components/CurrentDateTimeFeature.vue";
+import SearchFeature from "@/features/search/SearchFeature.vue";
 import LangSelect from "@/features/translation/components/LangSelect.vue";
 import VButton from "@/shared/ui/base/VButton.vue";
-import VInput from "@/shared/ui/base/VInput.vue";
 import VLogo from "@/shared/ui/base/VLogo.vue";
-
-const { t } = useI18n();
 
 const isSearchOpen = ref(false);
 </script>
@@ -19,9 +16,7 @@ const isSearchOpen = ref(false);
     <div class="container d-flex align-items-center gap-2 py-2">
       <VLogo v-if="!isSearchOpen" class="me-0 me-sm-3" />
 
-      <VInput
-        type="search"
-        :placeholder="t('search')"
+      <SearchFeature
         class="top-menu__search"
         :class="{
           'top-menu__search--open animate__animated animate__fadeIn': isSearchOpen,

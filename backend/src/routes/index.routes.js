@@ -5,20 +5,25 @@ import { orders, products } from "../data/index.data.js";
 const router = Router();
 
 router.get("/orders", (req, res) => {
-  const result = orders.map((order) => ({
-    ...order,
-    products: products.filter((product) => product.order === order.id),
-  }));
+  const { search } = req.query;
+
+  const result = orders
+    .filter((order) => !search || order.title.toLowerCase().includes(search.toLowerCase()))
+    .map((order) => ({
+      ...order,
+      products: products.filter((product) => product.order === order.id),
+    }));
 
   res.json(result);
 });
 
 router.get("/products", (req, res) => {
-  const { type, order } = req.query;
+  const { type, order, search } = req.query;
 
   const result = products
     .filter((product) => !type || product.type === type)
     .filter((product) => !order || product.order === Number(order))
+    .filter((product) => !search || product.title.toLowerCase().includes(search.toLowerCase()))
     .map((product) => ({
       ...product,
       orderTitle: orders.find((o) => o.id === product.order)?.title ?? "",

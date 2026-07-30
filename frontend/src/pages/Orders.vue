@@ -11,6 +11,8 @@ const ordersStore = useOrdersStore();
 
 const isGroupsRoute = computed(() => route.name === RouteNames.groups);
 
+const isGroupsPanelVisible = computed(() => isGroupsRoute.value && !ordersStore.hasError);
+
 const selectedOrder = computed(
   () => ordersStore.ordersData.find((order) => order.id === Number(route.params.id)) ?? null,
 );
@@ -18,11 +20,14 @@ const selectedOrder = computed(
 
 <template>
   <div class="orders-page d-flex gap-3 h-100">
-    <div class="orders-page__orders" :class="{ 'orders-page__orders--collapsed': isGroupsRoute }">
+    <div
+      class="orders-page__orders"
+      :class="{ 'orders-page__orders--collapsed': isGroupsPanelVisible }"
+    >
       <OrdersFeature />
     </div>
 
-    <router-view v-if="isGroupsRoute" v-slot="{ Component }">
+    <router-view v-if="isGroupsPanelVisible" v-slot="{ Component }">
       <Transition
         enter-active-class="animate__animated animate__fadeIn"
         leave-active-class="animate__animated animate__fadeOut"
@@ -30,7 +35,6 @@ const selectedOrder = computed(
         <component
           :is="Component"
           :order="selectedOrder"
-          :has-error="ordersStore.hasError"
           class="orders-page__groups flex-grow-1 p-4 border"
         />
       </Transition>
