@@ -38,7 +38,9 @@ router.get("/products/types", (req, res) => {
   res.json(types);
 });
 
-router.get("/analytics", (req, res) => {
+router.get("/analytics", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const ordersByYear = orders.reduce((acc, order) => {
     const year = order.date.slice(0, 4);
 

@@ -61,8 +61,8 @@ export default [
         },
       ],
       "style/array-bracket-spacing": ["error", "never"],
-      "style/array-bracket-newline": ["error", { multiline: true, minItems: 3 }],
-      "style/array-element-newline": ["error", { multiline: true, minItems: 3 }],
+      "style/array-bracket-newline": ["error", "consistent"],
+      "style/array-element-newline": ["error", "consistent"],
 
       // Import/export formatting - this fixes the {ref } spacing issue
       "style/object-property-newline": ["error", { allowAllPropertiesOnSameLine: true }],

@@ -27,5 +27,6 @@
   "type": "Тип",
   "addNewProduct": "Добавить новый товар",
   "selectOrder": "Выберите приход",
-  "analytics": "Аналитика"
+  "analytics": "Аналитика",
+  "chartOrdersByPeriod": "Количество приходов по годам"
 }

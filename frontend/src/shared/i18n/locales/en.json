@@ -27,5 +27,6 @@
   "type": "Type",
   "addNewProduct": "Add new product",
   "selectOrder": "Select an order",
-  "analytics": "Analytics"
+  "analytics": "Analytics",
+  "chartOrdersByPeriod": "Orders count by year"
 }
