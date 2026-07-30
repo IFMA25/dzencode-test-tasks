@@ -6,5 +6,6 @@ declare module "vue-router" {
     titleMenu?: string;
     iconMenu?: string;
     showInMenu?: boolean;
+    search?: boolean;
   }
 }

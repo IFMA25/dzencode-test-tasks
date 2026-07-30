@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 
@@ -10,6 +10,8 @@ const router = useRouter();
 const { t } = useI18n();
 
 const searchValue = ref(String(route.query.search ?? ""));
+
+const isSearchEnabled = computed(() => route.meta.search === true);
 
 const setSearchQuery = (value: string) => {
   if ((route.query.search ?? "") === value) return;
@@ -39,5 +41,11 @@ watch(
 </script>
 
 <template>
-  <VInput v-model="searchValue" type="search" :placeholder="t('search')" @search="handleSearch" />
+  <VInput
+    v-model="searchValue"
+    type="search"
+    :placeholder="t('search')"
+    :disabled="!isSearchEnabled"
+    @search="handleSearch"
+  />
 </template>

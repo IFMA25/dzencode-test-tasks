@@ -13,6 +13,7 @@ export const routes: RouteRecordRaw[] = [
       title: "orders",
       titleMenu: "orders",
       iconMenu: "receipt",
+      search: true,
     },
     children: [
       {
@@ -23,6 +24,7 @@ export const routes: RouteRecordRaw[] = [
           title: "orders",
           titleMenu: "groups",
           iconMenu: "collection",
+          search: true,
         },
       },
     ],
@@ -35,6 +37,7 @@ export const routes: RouteRecordRaw[] = [
       title: "products",
       titleMenu: "products",
       iconMenu: "box-seam",
+      search: true,
     },
   },
   {
