@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
+import BarChartForProducts from "./components/BarChartForProducts.vue";
 import LineChartForOrders from "./components/LineChartForOrders.vue";
 import { useAnalytics } from "./composables/useAnalytics";
 
@@ -19,6 +20,12 @@ onMounted(() => {
 
     <LineChartForOrders
       :data="analyticsData?.ordersByPeriod"
+      :loading="loading"
+      :has-error="hasError"
+    />
+
+    <BarChartForProducts
+      :data="analyticsData?.productsPerOrder"
       :loading="loading"
       :has-error="hasError"
     />

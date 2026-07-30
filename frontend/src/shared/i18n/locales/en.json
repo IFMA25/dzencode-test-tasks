@@ -28,5 +28,7 @@
   "addNewProduct": "Add new product",
   "selectOrder": "Select an order",
   "analytics": "Analytics",
-  "chartOrdersByPeriod": "Orders count by year"
+  "chartOrdersByPeriod": "Orders count by year",
+  "chartProductsPerOrder": "Products count per order",
+  "chartOrderNumber": "Order #{number}"
 }

@@ -28,5 +28,7 @@
   "addNewProduct": "Добавить новый товар",
   "selectOrder": "Выберите приход",
   "analytics": "Аналитика",
-  "chartOrdersByPeriod": "Количество приходов по годам"
+  "chartOrdersByPeriod": "Количество приходов по годам",
+  "chartProductsPerOrder": "Количество продуктов в приходах",
+  "chartOrderNumber": "Приход №{number}"
 }
