@@ -13,9 +13,8 @@ import VButton from "@/shared/ui/base/VButton.vue";
 import VGridTable, { type GridTableColumn } from "@/shared/ui/base/VGridTable.vue";
 import { getEmptyStateKey } from "@/shared/utils/getEmptyStateKey";
 
-const { order, hasError = false } = defineProps<{
+const { order } = defineProps<{
   order?: Order;
-  hasError?: boolean;
 }>();
 
 const columns: GridTableColumn<Product>[] = [
@@ -45,7 +44,7 @@ const loadProducts = async (orderId: number) => {
   }
 };
 
-const emptyStateKey = computed(() => getEmptyStateKey(hasError, !!route.query.search));
+const productsEmptyStateKey = computed(() => getEmptyStateKey(productsHasError.value, false));
 
 watch(
   () => order?.id,
@@ -98,17 +97,18 @@ watch(
       </template>
       <template v-if="productsHasError || !products.length" #message>
         <VEmptyState
-          :text="t(EMPTY_STATE_MESSAGES[emptyStateKey].textKey, { name: t('products') })"
-          :variant="EMPTY_STATE_MESSAGES[emptyStateKey].variant"
+          :text="
+            t(EMPTY_STATE_MESSAGES[productsEmptyStateKey].textKey, {
+              name: t('products').toLowerCase(),
+            })
+          "
+          :variant="EMPTY_STATE_MESSAGES[productsEmptyStateKey].variant"
         />
       </template>
     </VGridTable>
 
     <template v-else>
-      <VEmptyState
-        :text="t(EMPTY_STATE_MESSAGES[emptyStateKey].textKey, { name: t('orders') })"
-        :variant="EMPTY_STATE_MESSAGES[emptyStateKey].variant"
-      />
+      <VEmptyState :text="t('selectOrder')" />
     </template>
   </div>
 </template>

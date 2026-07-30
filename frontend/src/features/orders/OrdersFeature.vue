@@ -180,7 +180,9 @@ watch(
 
       <template v-if="ordersStore.hasError || !ordersStore.ordersData.length" #message>
         <VEmptyState
-          :text="t(EMPTY_STATE_MESSAGES[emptyStateKey].textKey, { name: t('orders') })"
+          :text="
+            t(EMPTY_STATE_MESSAGES[emptyStateKey].textKey, { name: t('orders').toLowerCase() })
+          "
           :variant="EMPTY_STATE_MESSAGES[emptyStateKey].variant"
         />
       </template>
