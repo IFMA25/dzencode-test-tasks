@@ -18,8 +18,8 @@ SPA-приложение тестовое задание для компании
 - **REST** — Express с Socket.io.
 - **Git** — feature-branch workflow, отдельная ветка на задачу, вливание в `main` через PR.
 - **WebSocket** — Socket.io, счётчик активных сессий в реальном времени.
-- **Docker**
-- **Хостинг / VDS**
+- **Docker** — два образа (Express и nginx со статикой) и `docker-compose.yml`, поднимающий приложение одной командой.
+- **Хостинг / VDS** — приложение развёрнуто на VDS тем же `docker compose`.
 
 ## Дополнительно из уровня Junior+
 
@@ -36,6 +36,36 @@ SPA-приложение тестовое задание для компании
 **Backend:** Node.js, Express, Socket.io, CORS
 
 **Инструменты:** ESLint, Prettier, husky, pnpm
+
+## Запуск
+
+### Через Docker
+
+```bash
+docker compose up -d --build
+```
+
+Приложение на `http://localhost:8080`, остановить — `docker compose down`.
+
+- **Два контейнера** — Express с API и nginx со статикой фронтенда.
+- **Наружу открыт только фронтенд** — бэкенд доступен по имени `backend` соседнему контейнеру, но не из браузера. Все запросы идут на один адрес, nginx проксирует `/api` и `/socket.io` в Express.
+- **SPA-фолбек** — nginx отдаёт `index.html` на любой роут, поэтому перезагрузка страницы не даёт 404.
+- **Порт** — меняется переменной `FRONTEND_PORT`, на сервере запускается с `FRONTEND_PORT=80`.
+
+### Локально
+
+Нужны Node.js 18+ и pnpm 10+.
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Фронтенд на `http://localhost:3000`, бэкенд на `http://localhost:4000`.
+
+- **Одна команда на две части** — проект собран как pnpm workspace.
+- **Прокси** — `/api` и `/socket.io` проксирует dev-сервер Vite, адрес бэкенда в коде не зашит.
+- **Переменные окружения** — не обязательны, `VITE_API_URL` по умолчанию `/api`. Пример — `frontend/.env.example`.
 
 ## Архитектура
 
