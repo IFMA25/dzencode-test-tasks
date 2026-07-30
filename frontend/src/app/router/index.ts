@@ -67,6 +67,16 @@ export const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: "/analytics",
+    name: RouteNames.analytics,
+    component: () => import("@/pages/Analytics.vue"),
+    meta: {
+      title: "analytics",
+      titleMenu: "analytics",
+      iconMenu: "graph-up-arrow",
+    },
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: RouteNames.notFound,
     component: () => import("@/pages/NotFound.vue"),

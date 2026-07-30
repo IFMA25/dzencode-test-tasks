@@ -28,6 +28,12 @@ export interface Product {
   orderTitle?: string;
 }
 
+export interface AnalyticsData {
+  ordersByPeriod: { period: string; count: number }[];
+  productsPerOrder: { order: number; count: number }[];
+  productTypes: { type: string; count: number }[];
+}
+
 export interface Order {
   id: number;
   title: string;

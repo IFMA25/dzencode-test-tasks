@@ -26,5 +26,10 @@
   "orderDeleted": "Приход успешно удален",
   "type": "Тип",
   "addNewProduct": "Добавить новый товар",
-  "selectOrder": "Выберите приход"
+  "selectOrder": "Выберите приход",
+  "analytics": "Аналитика",
+  "chartOrdersByPeriod": "Количество приходов по годам",
+  "chartProductsPerOrder": "Количество продуктов в приходах",
+  "chartOrderNumber": "Приход №{number}",
+  "chartProductTypes": "Типы продуктов"
 }

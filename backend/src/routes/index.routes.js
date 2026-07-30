@@ -38,6 +38,33 @@ router.get("/products/types", (req, res) => {
   res.json(types);
 });
 
+router.get("/analytics", (req, res) => {
+  const ordersByYear = orders.reduce((acc, order) => {
+    const year = order.date.slice(0, 4);
+
+    acc[year] = (acc[year] ?? 0) + 1;
+
+    return acc;
+  }, {});
+
+  const productsByType = products.reduce((acc, product) => {
+    acc[product.type] = (acc[product.type] ?? 0) + 1;
+
+    return acc;
+  }, {});
+
+  res.json({
+    ordersByPeriod: Object.entries(ordersByYear)
+      .map(([period, count]) => ({ period, count }))
+      .sort((a, b) => a.period.localeCompare(b.period)),
+    productsPerOrder: orders.map((order) => ({
+      order: order.id,
+      count: products.filter((product) => product.order === order.id).length,
+    })),
+    productTypes: Object.entries(productsByType).map(([type, count]) => ({ type, count })),
+  });
+});
+
 router.delete("/orders/:id", (req, res) => {
   const id = Number(req.params.id);
   const index = orders.findIndex((order) => order.id === id);
