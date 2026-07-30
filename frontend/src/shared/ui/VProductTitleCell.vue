@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { title, photo = "/img-monitor.png" } = defineProps<{
+import defaultPhoto from "@/assets/img-monitor.webp";
+
+const { title, photo = defaultPhoto } = defineProps<{
   title: string;
   photo?: string;
 }>();

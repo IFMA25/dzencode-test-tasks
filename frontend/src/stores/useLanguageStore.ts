@@ -3,10 +3,13 @@ import { ref } from "vue";
 
 import { STORAGE_KEYS } from "@/shared/constants";
 import i18n from "@/shared/i18n";
-import { defaultLocale, isSupportedLocale, type Locale } from "@/shared/i18n/config/locale";
+import {
+  defaultLocale,
+  isSupportedLocale,
+  normalizeLocale,
+  type Locale,
+} from "@/shared/i18n/config/locale";
 import { getStorageItem, setStorageItem } from "@/shared/utils/webStorage";
-
-const normalizeLocale = (raw: string) => raw.toLowerCase().split("-")[0];
 
 export const useLanguageStore = defineStore("language", () => {
   const currentLang = ref<Locale>(defaultLocale);

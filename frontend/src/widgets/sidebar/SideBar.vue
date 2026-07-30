@@ -15,13 +15,13 @@ defineProps<{
 const isDesktop = useMediaQuery("(min-width: 1200px)");
 const isOpen = ref(isDesktop.value);
 
-watch(isDesktop, (value) => {
-  isOpen.value = value;
-});
-
 const toggle = () => {
   isOpen.value = !isOpen.value;
 };
+
+watch(isDesktop, (value) => {
+  isOpen.value = value;
+});
 </script>
 
 <template>
@@ -30,7 +30,6 @@ const toggle = () => {
     :class="{ 'sidebar--collapsed': !isOpen }"
   >
     <SidebarHeader v-if="isOpen" />
-
     <nav class="sidebar__nav" :class="{ 'sidebar__nav--offset': !isOpen }">
       <ul class="sidebar__list d-flex flex-column gap-2 list-unstyled m-0">
         <SidebarNavItem
@@ -41,7 +40,6 @@ const toggle = () => {
         />
       </ul>
     </nav>
-
     <VButton
       variant="circle"
       :icon="isOpen ? 'chevron-left' : 'chevron-right'"

@@ -17,8 +17,7 @@ onMounted(() => {
 
 <template>
   <div class="analytics d-flex flex-column gap-3">
-    <VPageTitle />
-
+    <VPageTitle :title="$t($route.meta.title ?? '')" />
     <div class="analytics__charts d-grid gap-3">
       <LineChartForOrders
         class="analytics__line"
@@ -26,14 +25,12 @@ onMounted(() => {
         :loading="loading"
         :has-error="hasError"
       />
-
       <BarChartForProducts
         class="analytics__bar"
         :data="analyticsData?.productsPerOrder"
         :loading="loading"
         :has-error="hasError"
       />
-
       <PieChartForProductsTypes
         class="analytics__pie"
         :data="analyticsData?.productTypes"
@@ -60,7 +57,7 @@ onMounted(() => {
       "line line"
       "bar pie";
 
-    @media (max-width: 992px) {
+    @media (max-width: $breakpoint-lg) {
       grid-template-columns: 1fr;
       grid-template-rows: repeat(3, 1fr);
       grid-template-areas:

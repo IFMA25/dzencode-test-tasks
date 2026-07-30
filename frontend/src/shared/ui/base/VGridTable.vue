@@ -18,11 +18,6 @@ const {
   loading?: boolean;
   variant?: "card" | "list";
 }>();
-
-defineEmits<{
-  "load-more": [currentLimit: number];
-  select: [row: T];
-}>();
 </script>
 
 <template>
@@ -30,7 +25,6 @@ defineEmits<{
     <div v-if="$slots.toolbar" class="v-grid-table__toolbar flex-shrink-0">
       <slot name="toolbar" />
     </div>
-
     <div class="v-grid-table__body flex-grow-1 overflow-y-auto">
       <VLoader
         v-if="loading"
@@ -38,11 +32,9 @@ defineEmits<{
         color="var(--bs-primary)"
         class="v-grid-table__loader position-absolute top-50 start-50 translate-middle z-1"
       />
-
       <div v-else-if="$slots.message" class="v-grid-table__message d-flex h-100">
         <slot name="message" />
       </div>
-
       <div
         v-else
         class="v-grid-table__grid d-grid"
@@ -54,7 +46,6 @@ defineEmits<{
           :key="row.id"
           class="v-grid-table__row d-grid"
           :class="{ border: variant === 'card' }"
-          @click="$emit('select', row)"
         >
           <div
             v-for="column in columns"
@@ -107,8 +98,6 @@ defineEmits<{
     grid-template-columns: subgrid;
     grid-column: 1 / -1;
     column-gap: 3px;
-    cursor: pointer;
-    transition: background-color 0.15s ease;
   }
 
   &__grid--card {

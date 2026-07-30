@@ -1,4 +1,4 @@
-export const chartColors = {
+export const CHART_COLORS = {
   axisLabel: "#9aa0a6",
   axisLine: "#e5e7eb",
   splitLine: "#e5e7eb",
@@ -6,4 +6,11 @@ export const chartColors = {
   surface: "#fff",
 };
 
-export const chartSeriesColors = ["#5a9520", "#4a3aa7", "#eb6834", "#2a78d6", "#c98600", "#12946a"];
+export const CHART_SERIES_COLORS = [
+  "#5a9520",
+  "#4a3aa7",
+  "#eb6834",
+  "#2a78d6",
+  "#c98600",
+  "#12946a",
+];

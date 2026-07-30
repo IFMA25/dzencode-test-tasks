@@ -1,28 +1,21 @@
 <script setup lang="ts">
-import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
-import { EMPTY_STATE_MESSAGES } from "@/shared/constants";
 import VEmptyState from "@/shared/ui/VEmptyState.vue";
-import { getEmptyStateKey } from "@/shared/utils/getEmptyStateKey";
 
 const {
   title,
-  emptyName,
   loading = false,
   hasError = false,
   isEmpty = false,
 } = defineProps<{
   title: string;
-  emptyName: string;
   loading?: boolean;
   hasError?: boolean;
   isEmpty?: boolean;
 }>();
 
 const { t } = useI18n();
-
-const emptyStateKey = computed(() => getEmptyStateKey(hasError, false));
 </script>
 
 <template>
@@ -34,11 +27,9 @@ const emptyStateKey = computed(() => getEmptyStateKey(hasError, false));
     <div class="chart-card__body d-flex flex-column flex-grow-1 overflow-hidden">
       <slot v-if="loading" name="skeleton" />
 
-      <VEmptyState
-        v-else-if="hasError || isEmpty"
-        :text="t(EMPTY_STATE_MESSAGES[emptyStateKey].textKey, { name: emptyName })"
-        :variant="EMPTY_STATE_MESSAGES[emptyStateKey].variant"
-      />
+      <VEmptyState v-else-if="hasError" :name="t('data')" has-error />
+
+      <VEmptyState v-else-if="isEmpty" :text="t('noData')" />
 
       <slot v-else />
     </div>

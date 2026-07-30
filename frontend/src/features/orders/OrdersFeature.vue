@@ -8,8 +8,7 @@ import OrderDeleteModal from "./components/OrderDeleteModal.vue";
 import type { OrderColumn } from "./types";
 import { getOrderTotalPrice } from "./utils";
 
-import { RouteNames } from "@/app/router/variables/routeNames";
-import { EMPTY_STATE_MESSAGES } from "@/shared/constants";
+import { ROUTE_NAMES } from "@/app/router/variables/routeNames";
 import type { Order } from "@/shared/types";
 import VEmptyState from "@/shared/ui/VEmptyState.vue";
 import VPageTitle from "@/shared/ui/VPageTitle.vue";
@@ -18,7 +17,6 @@ import VGridTable from "@/shared/ui/base/VGridTable.vue";
 import VModal from "@/shared/ui/base/VModal.vue";
 import { formatCurrencyValue, getCurrencySymbol } from "@/shared/utils/format";
 import { formatDateLong, formatDateShort, toDate } from "@/shared/utils/formatDate";
-import { getEmptyStateKey } from "@/shared/utils/getEmptyStateKey";
 import { useOrdersStore } from "@/stores/useOrdersStore";
 
 const columns: OrderColumn[] = [
@@ -63,10 +61,8 @@ const route = useRoute();
 const ordersCount = computed(() => {
   return ordersStore.ordersData.length;
 });
-const isGroupsRoute = computed(() => route.name === RouteNames.groups);
+const isGroupsRoute = computed(() => route.name === ROUTE_NAMES.groups);
 const openOrderId = computed(() => (route.params.id ? Number(route.params.id) : null));
-
-const emptyStateKey = computed(() => getEmptyStateKey(ordersStore.hasError, !!route.query.search));
 
 const renderColumns = computed(() =>
   isGroupsRoute.value
@@ -77,7 +73,7 @@ const renderColumns = computed(() =>
 );
 
 const openGroup = (order: Order) => {
-  router.push({ name: RouteNames.groups, params: { id: order.id }, query: route.query });
+  router.push({ name: ROUTE_NAMES.groups, params: { id: order.id }, query: route.query });
 };
 
 const openDeleteModal = (order: Order) => {
@@ -110,15 +106,12 @@ watch(
     :loading="ordersStore.deleteLoading"
     @confirm="confirmDeleteOrder"
   />
-
   <VModal v-model:open="showAddModal" :title="$t('addIncomingOrder')" />
-
   <div class="d-flex flex-column h-100">
     <div class="orders orders-table__header d-flex align-items-center gap-2 flex-shrink-0">
       <VButton variant="add" icon="plus-lg" @click="showAddModal = true" />
-      <VPageTitle :count="ordersCount" />
+      <VPageTitle :title="$t($route.meta.title ?? '')" :count="ordersCount" />
     </div>
-
     <VGridTable
       :rows="ordersStore.ordersData"
       :columns="renderColumns"
@@ -177,13 +170,11 @@ watch(
           @click="openDeleteModal(row)"
         />
       </template>
-
       <template v-if="ordersStore.hasError || !ordersStore.ordersData.length" #message>
         <VEmptyState
-          :text="
-            t(EMPTY_STATE_MESSAGES[emptyStateKey].textKey, { name: t('orders').toLowerCase() })
-          "
-          :variant="EMPTY_STATE_MESSAGES[emptyStateKey].variant"
+          :name="t('orders')"
+          :has-error="ordersStore.hasError"
+          :has-search="!!route.query.search"
         />
       </template>
     </VGridTable>
@@ -203,7 +194,7 @@ watch(
   &__title {
     text-underline-offset: 0.25rem;
 
-    @media (max-width: 992px) {
+    @media (max-width: $breakpoint-lg) {
       font-size: $font-size-md;
     }
   }
@@ -220,7 +211,7 @@ watch(
     color: $text-muted;
     font-size: $font-size-md;
 
-    @media (max-width: 1200px) {
+    @media (max-width: $breakpoint-xl) {
       font-size: $small-font-size;
     }
 
@@ -228,7 +219,7 @@ watch(
       color: $text-table;
       font-size: $font-size;
 
-      @media (max-width: 1200px) {
+      @media (max-width: $breakpoint-xl) {
         font-size: $font-size-md;
       }
     }
@@ -245,7 +236,7 @@ watch(
     }
 
     &--long {
-      @media (max-width: 1200px) {
+      @media (max-width: $breakpoint-xl) {
         font-size: $font-size-md;
       }
     }
@@ -259,7 +250,7 @@ watch(
     grid-area: count-number;
     font-size: $font-size-lg;
 
-    @media (max-width: 1200px) {
+    @media (max-width: $breakpoint-xl) {
       font-size: $font-size;
     }
   }

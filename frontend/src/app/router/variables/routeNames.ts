@@ -1,4 +1,4 @@
-export const RouteNames = {
+export const ROUTE_NAMES = {
   orders: "orders",
   groups: "groups",
   products: "products",
@@ -9,4 +9,4 @@ export const RouteNames = {
   notFound: "notFound",
 } as const;
 
-export type RouteName = (typeof RouteNames)[keyof typeof RouteNames];
+export type RouteName = (typeof ROUTE_NAMES)[keyof typeof ROUTE_NAMES];

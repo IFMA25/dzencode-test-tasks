@@ -3,7 +3,7 @@ import { computed, onMounted, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
-import { EMPTY_STATE_MESSAGES, PRODUCT_CONDITIONS } from "@/shared/constants";
+import { PRODUCT_CONDITIONS } from "@/shared/constants";
 import type { Product } from "@/shared/types";
 import VEmptyState from "@/shared/ui/VEmptyState.vue";
 import VPageTitle from "@/shared/ui/VPageTitle.vue";
@@ -12,7 +12,6 @@ import VGridTable, { type GridTableColumn } from "@/shared/ui/base/VGridTable.vu
 import VSelect from "@/shared/ui/base/VSelect.vue";
 import { formatCurrencyValue, getCurrencySymbol } from "@/shared/utils/format";
 import { formatDateLong, formatDateShort, toDate } from "@/shared/utils/formatDate";
-import { getEmptyStateKey } from "@/shared/utils/getEmptyStateKey";
 import { useProductsStore } from "@/stores/useProductsStore";
 
 const columns: GridTableColumn<Product>[] = [
@@ -44,10 +43,6 @@ const typeOptions = computed(() => [
 
 const productsCount = computed(() => productsStore.productsData.length);
 
-const emptyStateKey = computed(() =>
-  getEmptyStateKey(productsStore.hasError, !!route.query.search),
-);
-
 onMounted(() => {
   productsStore.getInitType();
   productsStore.loadProductTypes();
@@ -64,7 +59,11 @@ watch(
 
 <template>
   <div class="products position-relative h-100 d-grid gap-3">
-    <VPageTitle :count="productsCount" class="products__title align-self-center" />
+    <VPageTitle
+      :title="$t($route.meta.title ?? '')"
+      :count="productsCount"
+      class="products__title align-self-center"
+    />
 
     <VGridTable
       :rows="productsStore.productsData"
@@ -73,7 +72,7 @@ watch(
       variant="card"
       class="products__table products-table__table"
     >
-      <template v-if="productsStore.productTypes.length" #toolbar>
+      <template v-if="productsStore.typesLoading || productsStore.productTypes.length" #toolbar>
         <VSelect
           id="product-type"
           v-model="productsStore.selectedType"
@@ -83,9 +82,9 @@ watch(
           track-by="key"
           :allow-empty="false"
           :close-on-select="true"
+          :loading="productsStore.typesLoading"
         />
       </template>
-
       <template #cell-conditionDot="{ row }">
         <span
           class="products-table__condition-dot rounded-circle"
@@ -130,13 +129,11 @@ watch(
       <template #cell-orderTitle="{ row }">
         <span class="products-table__order-title">{{ row.orderTitle }}</span>
       </template>
-
       <template v-if="productsStore.hasError || !productsStore.productsData.length" #message>
         <VEmptyState
-          :text="
-            t(EMPTY_STATE_MESSAGES[emptyStateKey].textKey, { name: t('products').toLowerCase() })
-          "
-          :variant="EMPTY_STATE_MESSAGES[emptyStateKey].variant"
+          :name="t('products')"
+          :has-error="productsStore.hasError"
+          :has-search="!!route.query.search"
         />
       </template>
     </VGridTable>
@@ -152,6 +149,11 @@ watch(
     grid-column: 1;
     grid-row: 1;
   }
+
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+  }
 }
 
 .products-table {
@@ -163,12 +165,22 @@ watch(
       grid-row: 1;
       align-self: center;
       margin-bottom: 0;
+
+      @media (max-width: $breakpoint-lg) {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: start;
+      }
     }
 
     :deep(.v-grid-table__body) {
       position: relative;
       grid-column: 1 / -1;
       grid-row: 2;
+
+      @media (max-width: $breakpoint-lg) {
+        grid-row: 3;
+      }
     }
   }
 
@@ -199,7 +211,7 @@ watch(
     color: $text-muted;
     font-size: $font-size-md;
 
-    @media (max-width: 1200px) {
+    @media (max-width: $breakpoint-xl) {
       font-size: $font-size-sm;
     }
 
@@ -219,7 +231,7 @@ watch(
 
   &__order-title,
   &__price--default {
-    @media (max-width: 1200px) {
+    @media (max-width: $breakpoint-xl) {
       font-size: $font-size-md;
     }
   }

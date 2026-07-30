@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+import { ROUTE_NAMES } from "@/app/router/variables/routeNames";
 import ActiveSessionsFeature from "@/features/activeSessions/ActiveSessionsFeature.vue";
 import CurrentDateTimeFeature from "@/features/currentDateTime/components/CurrentDateTimeFeature.vue";
 import SearchFeature from "@/features/search/SearchFeature.vue";
@@ -14,8 +15,7 @@ const isSearchOpen = ref(false);
 <template>
   <header class="top-menu sticky-top w-100">
     <div class="container d-flex align-items-center gap-2 py-2">
-      <VLogo v-if="!isSearchOpen" class="me-0 me-sm-3" />
-
+      <VLogo v-if="!isSearchOpen" :to="{ name: ROUTE_NAMES.orders }" class="me-0 me-sm-3" />
       <SearchFeature
         class="top-menu__search"
         :class="{
@@ -24,7 +24,6 @@ const isSearchOpen = ref(false);
         }"
         :autofocus="isSearchOpen"
       />
-
       <VButton
         variant="circle"
         :icon="isSearchOpen ? 'x' : 'search'"

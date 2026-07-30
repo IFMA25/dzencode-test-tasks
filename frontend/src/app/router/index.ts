@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
-import { RouteNames } from "./variables/routeNames";
+import { ROUTE_NAMES } from "./variables/routeNames";
 
 import i18n from "@/shared/i18n";
 
 export const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    name: RouteNames.orders,
+    name: ROUTE_NAMES.orders,
     component: () => import("@/pages/Orders.vue"),
     meta: {
       title: "orders",
@@ -17,7 +17,7 @@ export const routes: RouteRecordRaw[] = [
     children: [
       {
         path: "groups/:id?",
-        name: RouteNames.groups,
+        name: ROUTE_NAMES.groups,
         component: () => import("@/pages/Groups.vue"),
         meta: {
           title: "orders",
@@ -29,7 +29,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: "/products",
-    name: RouteNames.products,
+    name: ROUTE_NAMES.products,
     component: () => import("@/pages/Products.vue"),
     meta: {
       title: "products",
@@ -39,7 +39,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: "/settings",
-    name: RouteNames.settings,
+    name: ROUTE_NAMES.settings,
     component: () => import("@/pages/Settings.vue"),
     meta: {
       title: "settings",
@@ -49,7 +49,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: "/users",
-    name: RouteNames.users,
+    name: ROUTE_NAMES.users,
     component: () => import("@/pages/Users.vue"),
     meta: {
       title: "users",
@@ -59,7 +59,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: "/profile-settings",
-    name: RouteNames.profileSettings,
+    name: ROUTE_NAMES.profileSettings,
     component: () => import("@/pages/ProfileSettings.vue"),
     meta: {
       title: "profileSettings",
@@ -68,7 +68,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: "/analytics",
-    name: RouteNames.analytics,
+    name: ROUTE_NAMES.analytics,
     component: () => import("@/pages/Analytics.vue"),
     meta: {
       title: "analytics",
@@ -78,7 +78,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: "/:pathMatch(.*)*",
-    name: RouteNames.notFound,
+    name: ROUTE_NAMES.notFound,
     component: () => import("@/pages/NotFound.vue"),
     meta: {
       title: "notFound",

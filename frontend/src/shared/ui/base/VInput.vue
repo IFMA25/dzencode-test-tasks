@@ -18,12 +18,11 @@ const {
   autofocus?: boolean;
 }>();
 
-const emit = defineEmits<{ search: [value: string] }>();
+const inputRef = ref<HTMLInputElement | null>(null);
 
 const model = defineModel<string>({ default: "" });
 
-const inputRef = ref<HTMLInputElement | null>(null);
-
+const emit = defineEmits<{ search: [value: string] }>();
 const emitSearch = useDebounceFn((value: string) => {
   emit("search", value);
 }, DEBOUNCE_MS);
@@ -49,7 +48,6 @@ watch(
       v-bind="$attrs"
       @input="emitSearch(model?.trim() ?? '')"
     />
-
     <VLoader
       v-if="loading"
       size="sm"
