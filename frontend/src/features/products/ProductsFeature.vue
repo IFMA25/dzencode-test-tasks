@@ -3,7 +3,7 @@ import { computed, onMounted, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
-import { EMPTY_STATE_MESSAGES, PRODUCT_CONDITIONS } from "@/shared/constants";
+import { PRODUCT_CONDITIONS } from "@/shared/constants";
 import type { Product } from "@/shared/types";
 import VEmptyState from "@/shared/ui/VEmptyState.vue";
 import VPageTitle from "@/shared/ui/VPageTitle.vue";
@@ -12,7 +12,6 @@ import VGridTable, { type GridTableColumn } from "@/shared/ui/base/VGridTable.vu
 import VSelect from "@/shared/ui/base/VSelect.vue";
 import { formatCurrencyValue, getCurrencySymbol } from "@/shared/utils/format";
 import { formatDateLong, formatDateShort, toDate } from "@/shared/utils/formatDate";
-import { getEmptyStateKey } from "@/shared/utils/getEmptyStateKey";
 import { useProductsStore } from "@/stores/useProductsStore";
 
 const columns: GridTableColumn<Product>[] = [
@@ -43,10 +42,6 @@ const typeOptions = computed(() => [
 ]);
 
 const productsCount = computed(() => productsStore.productsData.length);
-
-const emptyStateKey = computed(() =>
-  getEmptyStateKey(productsStore.hasError, !!route.query.search),
-);
 
 onMounted(() => {
   productsStore.getInitType();
@@ -137,10 +132,9 @@ watch(
 
       <template v-if="productsStore.hasError || !productsStore.productsData.length" #message>
         <VEmptyState
-          :text="
-            t(EMPTY_STATE_MESSAGES[emptyStateKey].textKey, { name: t('products').toLowerCase() })
-          "
-          :variant="EMPTY_STATE_MESSAGES[emptyStateKey].variant"
+          :name="t('products')"
+          :has-error="productsStore.hasError"
+          :has-search="!!route.query.search"
         />
       </template>
     </VGridTable>

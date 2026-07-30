@@ -9,7 +9,7 @@
   "users": "Пользователи",
   "notFound": "Страница не найдена",
   "returnBack": "Вернуться",
-  "noData": "Нет данных",
+  "noData": "Нет данных для отображения",
   "productCount": "Продукта",
   "deleteModalTitle": "Вы уверены, что хотите удалить этот приход?",
   "addIncomingOrder": "Добавить новый приход",
@@ -31,5 +31,6 @@
   "chartOrdersByPeriod": "Количество приходов по годам",
   "chartProductsPerOrder": "Количество продуктов в приходах",
   "chartOrderNumber": "Приход №{number}",
-  "chartProductTypes": "Типы продуктов"
+  "chartProductTypes": "Типы продуктов",
+  "data": "данные"
 }

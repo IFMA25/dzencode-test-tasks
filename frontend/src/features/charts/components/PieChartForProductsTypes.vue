@@ -68,7 +68,6 @@ const option = computed<EChartsOption>(() => ({
 <template>
   <ChartCard
     :title="t('chartProductTypes')"
-    :empty-name="t('products')"
     :loading="loading"
     :has-error="hasError"
     :is-empty="!data.length"

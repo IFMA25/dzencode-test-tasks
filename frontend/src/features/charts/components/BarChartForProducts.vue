@@ -73,7 +73,6 @@ const getSkeletonHeight = (index: number) =>
 <template>
   <ChartCard
     :title="t('chartProductsPerOrder')"
-    :empty-name="t('products')"
     :loading="loading"
     :has-error="hasError"
     :is-empty="!data.length"
