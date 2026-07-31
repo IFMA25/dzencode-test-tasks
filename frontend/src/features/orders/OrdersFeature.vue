@@ -64,7 +64,7 @@ const ordersCount = computed(() => {
 const isGroupsRoute = computed(() => route.name === ROUTE_NAMES.groups);
 const openOrderId = computed(() => (route.params.id ? Number(route.params.id) : null));
 
-const renderColumns = computed(() =>
+const visibleColumns = computed(() =>
   isGroupsRoute.value
     ? columns
         .filter((column) => column.isGroupsColumn)
@@ -114,10 +114,12 @@ watch(
     </div>
     <VGridTable
       :rows="ordersStore.ordersData"
-      :columns="renderColumns"
+      :columns="visibleColumns"
       :loading="ordersStore.loading"
       variant="card"
+      :click-row="isGroupsRoute"
       class="orders__table orders-table__table flex-grow-1"
+      @row-click="openGroup"
     >
       <template #cell-title="{ row }">
         <span class="orders-table__title text-decoration-underline">{{ row.title }}</span>
@@ -128,7 +130,7 @@ watch(
             variant="circle"
             icon="list-ul"
             class="orders-table__btn-prod align-self-center"
-            @click="openGroup(row)"
+            @click.stop="openGroup(row)"
           />
           <span class="orders-table__count-number align-self-end fw-semibold">
             {{ row.products?.length }}
