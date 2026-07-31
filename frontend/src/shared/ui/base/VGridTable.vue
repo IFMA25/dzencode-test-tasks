@@ -12,11 +12,17 @@ const {
   columns = [],
   loading = false,
   variant = "card",
+  clickRow = false,
 } = defineProps<{
   rows: T[];
   columns?: GridTableColumn<T>[];
   loading?: boolean;
   variant?: "card" | "list";
+  clickRow?: boolean;
+}>();
+
+defineEmits<{
+  rowClick: [row: T];
 }>();
 </script>
 
@@ -45,7 +51,8 @@ const {
           v-for="row in rows"
           :key="row.id"
           class="v-grid-table__row d-grid"
-          :class="{ border: variant === 'card' }"
+          :class="{ border: variant === 'card', 'v-grid-table__row--clickable': clickRow }"
+          @click="clickRow && $emit('rowClick', row)"
         >
           <div
             v-for="column in columns"
@@ -98,6 +105,10 @@ const {
     grid-template-columns: subgrid;
     grid-column: 1 / -1;
     column-gap: 3px;
+
+    &--clickable {
+      cursor: pointer;
+    }
   }
 
   &__grid--card {
