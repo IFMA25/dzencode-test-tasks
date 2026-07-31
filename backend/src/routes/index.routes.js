@@ -75,6 +75,11 @@ router.delete("/orders/:id", (req, res) => {
   }
 
   orders.splice(index, 1);
+
+  for (let i = products.length - 1; i >= 0; i--) {
+    if (products[i].order === id) products.splice(i, 1);
+  }
+
   res.status(204).send();
 });
 
